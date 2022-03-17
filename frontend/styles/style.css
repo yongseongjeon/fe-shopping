@@ -20,7 +20,7 @@ body {
 .search-form {
   width: 52.2rem;
   height: 3.8rem;
-  border: 1px solid black;
+  border: 2px solid #4285f4;
 }
 
 .select-category {
