@@ -8,7 +8,27 @@ $icon-mic: url(https://img1a.coupangcdn.com/image/coupang/common/ic_mic.png)
 
 .select-category
   width: 13.5rem
-  height: 3.8rem
+  min-height: 3.8rem
+  
+  ul
+    display: none
+
+.selected
+  width: 11.1rem
+  height: 3.3rem
+  padding: 1rem
+  box-sizing: border-box
+  font-size: 1.2rem
+  cursor: pointer
+
+.button-down
+  width: 3rem
+  height: 3rem
+  border: 0
+  margin-top: 0.3rem
+  @include set-icon($icon-search, $x: 6px, $y: -165px)
+  background-repeat: no-repeat
+  background-color: #fff
 
 .search-input
   width: 33.3rem

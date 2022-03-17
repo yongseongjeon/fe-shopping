@@ -18,7 +18,20 @@ SearchForm.prototype = Object.create(Component.prototype);
 SearchForm.prototype.template = function () {
   return `
   <div class="search-form flex-row">
-    <div class="select-category"></div>
+    <div class="select-category flex-col">
+    <div class="selected-container flex-row">
+      <div class="selected">전체</div>
+      <button class="button-down"></button>
+    </div>
+      <ul>
+        <li>전체</li>
+        <li>여성패션</li>
+        <li>남성패션</li>
+        <li>남녀 공동 의류</li>
+        <li>유아동패션</li>
+        <li>뷰티</li>
+      </ul>
+    </div>
     <div class="flex-row">
       <div class="search-input flex-col">
         <input data-name="input-search"></input>
@@ -45,10 +58,12 @@ SearchForm.prototype.addEvent = function () {
   const inputEl = $(".search-input input");
   const iconSearchEl = $(".icon-search");
   const searchFooterEl = $(".search-footer");
+  const selectedEl = $(".selected-container");
   inputEl.addEventListener("focus", recentSearchFocusHandler);
   inputEl.addEventListener("blur", recentSearchBlurHandler);
   searchFooterEl.addEventListener("click", searchFooterBtnHandler);
   iconSearchEl.addEventListener("click", searchBtnHandler);
+  selectedEl.addEventListener("click", selectCategoryHandler);
 };
 
 function recentSearchFocusHandler(e) {
@@ -90,4 +105,8 @@ function searchFooterBtnHandler(e) {
     hide($(".recent"));
     return;
   }
+}
+
+function selectCategoryHandler(e) {
+  console.log(e.target);
 }
