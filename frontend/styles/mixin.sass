@@ -1,0 +1,12 @@
+@mixin set-icon($url, $x, $y)
+  background-image: $url
+  background-position-x: $x
+  background-position-y: $y
+  cursor: pointer
+
+@mixin move($up: 0, $down: 0, $left: 0, $right: 0)
+  position: relative
+  bottom: $up
+  top: $down
+  right: $left
+  left: $right

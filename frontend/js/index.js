@@ -1,4 +1,4 @@
-import SearchForm from "./SearchForm.js";
+import SearchForm from "./components/SearchForm/SearchForm.js";
 
 const $body = document.body;
 
