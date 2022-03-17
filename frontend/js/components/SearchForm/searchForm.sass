@@ -2,7 +2,7 @@ $icon-search: url(https://static.coupangcdn.com/image/coupang/common/pc_header_i
 $icon-mic: url(https://img1a.coupangcdn.com/image/coupang/common/ic_mic.png)
 
 .search-form
-  width: 52.2rem
+  width: 54.2rem
   height: 3.8rem
   border: 2px solid rgb(66, 133, 244)
 
@@ -11,7 +11,22 @@ $icon-mic: url(https://img1a.coupangcdn.com/image/coupang/common/ic_mic.png)
   min-height: 3.8rem
   
   ul
-    display: none
+    box-shadow: 0 4px 5px rgb(0 0 0 / 30%)
+    transition: 0.5s
+    height: fit-content
+    padding: 1rem
+    position: relative
+    bottom: 19rem
+    opacity: 0
+
+    li
+      padding-top: 0.7rem
+      padding-bottom: 0.7rem
+      cursor: pointer
+      font-size: 1.2rem
+    li:hover
+      color: #3498db
+      text-decoration: underline
 
 .selected
   width: 11.1rem
@@ -37,8 +52,10 @@ $icon-mic: url(https://img1a.coupangcdn.com/image/coupang/common/ic_mic.png)
     width: 33.3rem
     min-height: 3.8rem
     font-size: 1.6rem
-    padding: 0
+    padding: 1rem
     border: 0
+    border-left: 1px solid rgb(133, 133, 133)
+    box-sizing: border-box
     
 .icon-mic
   width: 2.6rem

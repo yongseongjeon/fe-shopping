@@ -10,6 +10,15 @@ export function hide(el) {
   el.style.display = "none";
 }
 
+export function showOrHideToggle(el) {
+  const isHide = el.style.display === "none";
+  if (isHide) {
+    show(el);
+    return;
+  }
+  hide(el);
+}
+
 export function saveLocalStorage(key, value) {
   return localStorage.setItem(key, `${getLocalStorage(key) || ""}${value},`);
 }
@@ -18,7 +27,7 @@ export function getLocalStorage(key) {
   return localStorage.getItem(key);
 }
 
-export function initLocalStorage(key) {
+export function clearLocalStorage(key) {
   return localStorage.setItem(key, "");
 }
 

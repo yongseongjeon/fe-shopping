@@ -3,9 +3,10 @@ import {
   $,
   delay,
   hide,
-  initLocalStorage,
+  clearLocalStorage,
   saveLocalStorage,
   show,
+  showOrHideToggle,
 } from "../../utils.js";
 import Component from "/frontend/js/Component.js";
 
@@ -34,7 +35,7 @@ SearchForm.prototype.template = function () {
     </div>
     <div class="flex-row">
       <div class="search-input flex-col">
-        <input data-name="input-search"></input>
+        <input placeholder="찾고 싶은 상품을 검색해보세요!"></input>
         <div class="recent">
           <h3>최근 검색어</h3>
           <ol>
@@ -80,7 +81,7 @@ function recentSearchFocusHandler(e) {
 function recentSearchBlurHandler(e) {
   const recentEl = $(".recent");
   const recommendEl = $(".recommend");
-  delay(100).then(() => hide(recentEl));
+  delay(200).then(() => hide(recentEl));
   hide(recommendEl);
 }
 
@@ -97,7 +98,7 @@ function clearValue(el) {
 function searchFooterBtnHandler(e) {
   const { name } = e.target.dataset;
   if (name === "전체삭제") {
-    initLocalStorage("recentSearch");
+    clearLocalStorage("recentSearch");
     location.reload();
     return;
   }
@@ -108,5 +109,7 @@ function searchFooterBtnHandler(e) {
 }
 
 function selectCategoryHandler(e) {
-  console.log(e.target);
+  const categoryEl = $(".select-category ul");
+  categoryEl.style.transform = "translateY(19.6rem)";
+  categoryEl.style.opacity = "1";
 }
