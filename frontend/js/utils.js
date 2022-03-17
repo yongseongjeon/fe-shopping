@@ -17,3 +17,12 @@ export function saveLocalStorage(key, value) {
 export function getLocalStorage(key) {
   return localStorage.getItem(key);
 }
+
+export function initLocalStorage(key) {
+  return localStorage.setItem(key, "");
+}
+
+export const delay = (ms) =>
+  new Promise((res) => {
+    setTimeout(() => res(), ms);
+  });

@@ -93,6 +93,7 @@ body {
 .search-footer button {
   border: 0;
   color: #888;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

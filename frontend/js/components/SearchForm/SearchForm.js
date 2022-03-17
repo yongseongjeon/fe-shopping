@@ -1,8 +1,9 @@
 import { recentSearch } from "../../data.js";
 import {
   $,
-  getLocalStorage,
+  delay,
   hide,
+  initLocalStorage,
   saveLocalStorage,
   show,
 } from "../../utils.js";
@@ -27,39 +28,57 @@ SearchForm.prototype.template = function () {
             ${recentSearch.reduce((acc, x) => acc + `<li>${x}</li>`, "")}
           </ol>
           <div class="search-footer flex-row">
-            <button>전체삭제</button>
-            <button>최근검색어끄기</button>
+            <button data-name="전체삭제">전체삭제</button>
+            <button data-name="최근검색어끄기">최근검색어끄기</button>
           </div>
         </div>
         <div class="recommend"></div>
       </div>
       <div class="icon-mic"></div>
-      <div class="icon-search"></div>
+      <a href="/frontend/index.html" class="icon-search"></a>
     </div>
   </div>`;
 };
 
 SearchForm.prototype.addEvent = function () {
   const inputEl = $(".search-input input");
+  const iconSearchEl = $(".icon-search");
+  const searchFooterEl = $(".search-footer");
   inputEl.addEventListener("focus", recentSearchFocusHandler);
   inputEl.addEventListener("blur", recentSearchBlurHandler);
-  $(".icon-search").addEventListener("click", searchBtnHandler);
+  searchFooterEl.addEventListener("click", searchFooterBtnHandler);
+  iconSearchEl.addEventListener("click", searchBtnHandler);
 };
 
 function recentSearchFocusHandler(e) {
   const recentEl = $(".recent");
-  const { name } = e.target.dataset;
   show(recentEl);
 }
 
 function recentSearchBlurHandler(e) {
   const recentEl = $(".recent");
-  const { name } = e.target.dataset;
-  hide(recentEl);
+  delay(100).then(() => hide(recentEl));
 }
 
 function searchBtnHandler(e) {
-  const value = $(".search-input input").value;
-  saveLocalStorage("recentSearch", value);
-  $(".search-input input").value = "";
+  const inputEl = $(".search-input input");
+  saveLocalStorage("recentSearch", inputEl.value);
+  clearValue(inputEl);
+}
+
+function clearValue(el) {
+  el.value = "";
+}
+
+function searchFooterBtnHandler(e) {
+  const { name } = e.target.dataset;
+  if (name === "전체삭제") {
+    initLocalStorage("recentSearch");
+    location.reload();
+    return;
+  }
+  if (name === "최근검색어끄기") {
+    hide($(".recent"));
+    return;
+  }
 }
