@@ -1,4 +1,11 @@
 import { recentSearch } from "../../data.js";
+import {
+  $,
+  getLocalStorage,
+  hide,
+  saveLocalStorage,
+  show,
+} from "../../utils.js";
 import Component from "/frontend/js/Component.js";
 
 export default function SearchForm(target) {
@@ -13,7 +20,7 @@ SearchForm.prototype.template = function () {
     <div class="select-category"></div>
     <div class="flex-row">
       <div class="search-input flex-col">
-        <input></input>
+        <input data-name="input-search"></input>
         <div class="recent">
           <h3>최근 검색어</h3>
           <ol>
@@ -31,3 +38,28 @@ SearchForm.prototype.template = function () {
     </div>
   </div>`;
 };
+
+SearchForm.prototype.addEvent = function () {
+  const inputEl = $(".search-input input");
+  inputEl.addEventListener("focus", recentSearchFocusHandler);
+  inputEl.addEventListener("blur", recentSearchBlurHandler);
+  $(".icon-search").addEventListener("click", searchBtnHandler);
+};
+
+function recentSearchFocusHandler(e) {
+  const recentEl = $(".recent");
+  const { name } = e.target.dataset;
+  show(recentEl);
+}
+
+function recentSearchBlurHandler(e) {
+  const recentEl = $(".recent");
+  const { name } = e.target.dataset;
+  hide(recentEl);
+}
+
+function searchBtnHandler(e) {
+  const value = $(".search-input input").value;
+  saveLocalStorage("recentSearch", value);
+  $(".search-input input").value = "";
+}

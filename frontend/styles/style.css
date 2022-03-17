@@ -66,6 +66,7 @@ body {
 .recent {
   font-size: 2rem;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+  display: none;
 }
 .recent h3 {
   padding: 1rem;

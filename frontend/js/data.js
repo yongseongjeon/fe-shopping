@@ -1,11 +1,5 @@
-export const recentSearch = [
-  "가",
-  "나",
-  "다",
-  "라",
-  "마",
-  "바",
-  "사",
-  "아",
-  "자",
-];
+import { getLocalStorage } from "./utils.js";
+
+export const recentSearch = getLocalStorage("recentSearch")
+  ? getLocalStorage("recentSearch").split(",")
+  : [];
