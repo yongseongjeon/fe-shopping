@@ -44,5 +44,12 @@ function autoCompleteHandler(e) {
     show(recommendEl);
     this.recommendList = autoCompleteList;
     this.render();
+    return;
+  }
+  const isPressBackspace = e.keyCode === 8;
+  if (isPressBackspace && inputEl.value === "") {
+    show(recentEl);
+    hide(recommendEl);
+    return;
   }
 }
