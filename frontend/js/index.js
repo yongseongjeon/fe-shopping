@@ -1,5 +1,5 @@
+import Component from "./Component.js";
 import SearchForm from "./components/SearchForm/SearchForm.js";
 
-const $body = document.body;
-
-const searchForm = new SearchForm($body);
+// debugger;
+const searchForm = new SearchForm(document.body);
