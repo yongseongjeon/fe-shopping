@@ -63,23 +63,23 @@ body {
   cursor: pointer;
 }
 
-.recent {
+.recent, .recommend {
   font-size: 2rem;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   display: none;
 }
-.recent h3 {
+.recent h3, .recommend h3 {
   padding: 1rem;
   border-bottom: 1px solid #bdc3c7;
 }
-.recent ol {
+.recent ol, .recommend ol {
   padding: 1rem;
 }
-.recent ol li {
+.recent ol li, .recommend ol li {
   padding: 0.5rem;
   cursor: pointer;
 }
-.recent ol li:hover {
+.recent ol li:hover, .recommend ol li:hover {
   color: #3498db;
   text-decoration: underline;
 }

@@ -1,4 +1,4 @@
-import { recentSearch } from "../../data.js";
+import { autoComplete, recentSearch } from "../../data.js";
 import {
   $,
   delay,
@@ -32,7 +32,8 @@ SearchForm.prototype.template = function () {
             <button data-name="최근검색어끄기">최근검색어끄기</button>
           </div>
         </div>
-        <div class="recommend"></div>
+        <div class="recommend">
+        </div>
       </div>
       <div class="icon-mic"></div>
       <a href="/frontend/index.html" class="icon-search"></a>
@@ -52,12 +53,20 @@ SearchForm.prototype.addEvent = function () {
 
 function recentSearchFocusHandler(e) {
   const recentEl = $(".recent");
+  const recommendEl = $(".recommend");
+  const inputEl = $(".search-input input");
+  if (inputEl.value) {
+    show(recommendEl);
+    return;
+  }
   show(recentEl);
 }
 
 function recentSearchBlurHandler(e) {
   const recentEl = $(".recent");
+  const recommendEl = $(".recommend");
   delay(100).then(() => hide(recentEl));
+  hide(recommendEl);
 }
 
 function searchBtnHandler(e) {
