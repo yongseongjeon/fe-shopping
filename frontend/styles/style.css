@@ -96,4 +96,8 @@ body {
   cursor: pointer;
 }
 
+ol strong {
+  color: #008cff;
+}
+
 /*# sourceMappingURL=style.css.map */

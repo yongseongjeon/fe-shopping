@@ -5,6 +5,7 @@ export default class Recommend {
   constructor(target) {
     this.target = target;
     this.recommendList = [];
+    this.searchKeyword = "";
     this.addEvent();
   }
 
@@ -17,10 +18,12 @@ export default class Recommend {
     <ol>
       ${
         this.recommendList
-          ? this.recommendList.reduce(
-              (acc, x) => acc + `<li>${x.keyword}</li>`,
-              ""
-            )
+          ? this.recommendList
+              .reduce((acc, x) => acc + `<li>${x.keyword}</li>`, "")
+              .replaceAll(
+                this.searchKeyword,
+                `<strong>${this.searchKeyword}</strong>`
+              )
           : ""
       }
     </ol>
@@ -43,13 +46,14 @@ function autoCompleteHandler(e) {
     hide(recentEl);
     show(recommendEl);
     this.recommendList = autoCompleteList;
+    this.searchKeyword = inputEl.value;
     this.render();
     return;
   }
   const isPressBackspace = e.keyCode === 8;
   if (isPressBackspace && inputEl.value === "") {
-    show(recentEl);
     hide(recommendEl);
+    show(recentEl);
     return;
   }
 }
