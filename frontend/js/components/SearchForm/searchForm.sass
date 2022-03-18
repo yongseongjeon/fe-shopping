@@ -6,18 +6,24 @@ $icon-mic: url(https://img1a.coupangcdn.com/image/coupang/common/ic_mic.png)
   height: 3.8rem
   border: 2px solid rgb(66, 133, 244)
 
+@keyframes growDown
+  transform: scaleY(0)
+  transform: scaleY(1.1)
+  transform: scaleY(1)
+
 .select-category
   width: 13.5rem
   min-height: 3.8rem
-  
   ul
+    background-color: #fff
     box-shadow: 0 4px 5px rgb(0 0 0 / 30%)
-    transition: 0.5s
+    transition: 1s
     height: fit-content
+    transform: scaleY(0)
+    perspective: 1000px
     padding: 1rem
-    position: relative
-    bottom: 19rem
-    opacity: 0
+    animation: growDown 300ms ease-in-out forwards
+    transform-origin: top center
 
     li
       padding-top: 0.7rem
@@ -72,7 +78,9 @@ $icon-mic: url(https://img1a.coupangcdn.com/image/coupang/common/ic_mic.png)
 .recent
   font-size: 2rem
   box-shadow: 0 4px 5px rgb(0 0 0 / 30%)
+  background-color: #fff
   display: none
+  position: relative
 
   h3
     padding: 1rem

@@ -109,6 +109,5 @@ function searchFooterBtnHandler(e) {
 
 function selectCategoryHandler(e) {
   const categoryEl = $(".select-category ul");
-  categoryEl.style.transform = "translateY(19.6rem)";
-  categoryEl.style.opacity = "1";
+  categoryEl.style.transform = "scaleY(1)";
 }

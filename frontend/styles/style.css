@@ -25,18 +25,25 @@ body {
   border: 2px solid #4285f4;
 }
 
+@keyframes growDown {
+  transform: scaleY(0);
+  transform: scaleY(1.1);
+  transform: scaleY(1);
+}
 .select-category {
   width: 13.5rem;
   min-height: 3.8rem;
 }
 .select-category ul {
+  background-color: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
-  transition: 0.5s;
+  transition: 1s;
   height: fit-content;
+  transform: scaleY(0);
+  perspective: 1000px;
   padding: 1rem;
-  position: relative;
-  bottom: 19rem;
-  opacity: 0;
+  animation: growDown 300ms ease-in-out forwards;
+  transform-origin: top center;
 }
 .select-category ul li {
   padding-top: 0.7rem;
@@ -111,7 +118,9 @@ body {
 .recent, .recommend {
   font-size: 2rem;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
   display: none;
+  position: relative;
 }
 .recent h3, .recommend h3 {
   padding: 1rem;
