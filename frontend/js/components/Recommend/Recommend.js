@@ -32,7 +32,6 @@ export default class Recommend {
 
   addEvent() {
     const inputEl = $(".search-input input");
-    console.dir($(".search-input input"));
     inputEl.addEventListener("keyup", autoCompleteHandler.bind(this));
   }
 }

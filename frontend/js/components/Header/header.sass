@@ -1,0 +1,113 @@
+@mixin new-icon()
+  display: inline-block
+  content: ''
+  width: 1.2rem
+  height: 1.2rem
+  margin-left: 0.2rem
+  background-image: url('https://static.coupangcdn.com/image/coupang/common/ico_new.png')
+  background-size: cover
+  background-repeat: no-repeat
+  
+.header
+  margin: 0 auto
+
+.category
+  width: 11rem
+  height: 11.5rem
+  @include set-icon($icon-search, $x: 6px, $y: -165px)
+  background-position: 0 0
+  text-align: center
+  font-size: 1.3rem
+  color: #fff
+  margin-right: 3rem
+
+  span
+    @include move($down: 8rem)
+
+.header
+  font-size: 1.2rem
+  .right
+    margin-top: 3rem
+
+.logo
+  margin-right: 2rem    
+
+.gnb
+  ul
+    li
+      font-size: 1.2rem
+      padding: 1.4rem
+      padding-bottom: 0
+      cursor: pointer
+      display: flex
+      flex-wrap: nowrap
+
+.delivery::before
+  display: inline-block
+  vertical-align: middle
+  content: ''
+  width: 2.4rem
+  height: 3rem
+  margin-right: 0.2rem
+  @include set-icon($icon-search, $x: 0, $y: -118px)
+  
+.fresh::before
+  display: inline-block
+  content: ''
+  width: 2rem
+  height: 2rem
+  margin-right: 0.2rem
+  background-image: url('https://static.coupangcdn.com/image/coupang/common/pc_header_rocket_fresh_1x.png')
+  background-repeat: no-repeat
+  
+.fresh::after
+  @include new-icon()
+
+.biz::before
+  display: inline-block
+  content: ''
+  width: 2rem
+  height: 1.9rem
+  background-image: url('https://static.coupangcdn.com/image/coupang/common/logoBizonlyBrown.png')
+  background-repeat: no-repeat
+  margin-right: 0.4rem
+
+.biz::after
+  @include new-icon()
+  
+.purchase::before
+  display: flex
+  flex-wrap: nowrap
+  content: ''
+  width: 2rem
+  height: 2.3rem
+  margin-right: 0.4rem
+  background-image: url('https://static.coupangcdn.com/image/coupang/home/icons/Overseas.png')
+  background-repeat: no-repeat
+
+.my
+  @include move($right: 1rem)
+
+.info
+  width: 7rem
+  height: 5.6rem
+  @include move($right: 2rem, $down: 0.8rem)
+
+.icon-my
+  width: 2.9rem
+  height: 3.1rem
+  margin-bottom: 0.2rem
+  @include set-icon($icon-search, $x: -112px, $y: -42px)
+  position: relative
+  left: 0.8rem
+
+  div
+    width: 5rem
+  
+.icon-cart
+  width: 4rem
+  height: 4.1rem
+  @include set-icon($icon-search, $x: -112px, $y: 0px)
+
+.cart
+  @include move($right: 2rem)

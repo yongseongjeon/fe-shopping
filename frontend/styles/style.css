@@ -5,6 +5,8 @@ html {
 body {
   margin: 0;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .flex-row {
@@ -144,6 +146,191 @@ ol {
 }
 ol strong {
   color: #008cff;
+}
+
+.header {
+  margin: 0 auto;
+}
+
+.category {
+  width: 11rem;
+  height: 11.5rem;
+  background-image: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
+  background-position-x: 6px;
+  background-position-y: -165px;
+  cursor: pointer;
+  background-position: 0 0;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #fff;
+  margin-right: 3rem;
+}
+.category span {
+  position: relative;
+  bottom: 0;
+  top: 8rem;
+  right: 0;
+  left: 0;
+}
+
+.header {
+  font-size: 1.2rem;
+}
+.header .right {
+  margin-top: 3rem;
+}
+
+.logo {
+  margin-right: 2rem;
+}
+
+.gnb ul li {
+  font-size: 1.2rem;
+  padding: 1.4rem;
+  padding-bottom: 0;
+  cursor: pointer;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.delivery::before {
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  width: 2.4rem;
+  height: 3rem;
+  margin-right: 0.2rem;
+  background-image: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
+  background-position-x: 0;
+  background-position-y: -118px;
+  cursor: pointer;
+}
+
+.fresh::before {
+  display: inline-block;
+  content: "";
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.2rem;
+  background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_rocket_fresh_1x.png");
+  background-repeat: no-repeat;
+}
+
+.fresh::after {
+  display: inline-block;
+  content: "";
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-left: 0.2rem;
+  background-image: url("https://static.coupangcdn.com/image/coupang/common/ico_new.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.biz::before {
+  display: inline-block;
+  content: "";
+  width: 2rem;
+  height: 1.9rem;
+  background-image: url("https://static.coupangcdn.com/image/coupang/common/logoBizonlyBrown.png");
+  background-repeat: no-repeat;
+  margin-right: 0.4rem;
+}
+
+.biz::after {
+  display: inline-block;
+  content: "";
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-left: 0.2rem;
+  background-image: url("https://static.coupangcdn.com/image/coupang/common/ico_new.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.purchase::before {
+  display: flex;
+  flex-wrap: nowrap;
+  content: "";
+  width: 2rem;
+  height: 2.3rem;
+  margin-right: 0.4rem;
+  background-image: url("https://static.coupangcdn.com/image/coupang/home/icons/Overseas.png");
+  background-repeat: no-repeat;
+}
+
+.my {
+  position: relative;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 1rem;
+}
+
+.info {
+  width: 7rem;
+  height: 5.6rem;
+  position: relative;
+  bottom: 0;
+  top: 0.8rem;
+  right: 0;
+  left: 2rem;
+}
+
+.icon-my {
+  width: 2.9rem;
+  height: 3.1rem;
+  margin-bottom: 0.2rem;
+  background-image: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
+  background-position-x: -112px;
+  background-position-y: -42px;
+  cursor: pointer;
+  position: relative;
+  left: 0.8rem;
+}
+.icon-my div {
+  width: 5rem;
+}
+
+.icon-cart {
+  width: 4rem;
+  height: 4.1rem;
+  background-image: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
+  background-position-x: -112px;
+  background-position-y: 0px;
+  cursor: pointer;
+}
+
+.cart {
+  position: relative;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 2rem;
+}
+
+.top-bar {
+  width: 100%;
+  font-size: 1.1rem;
+  justify-content: space-around;
+  background-color: #f0f0f0;
+}
+.top-bar div {
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.apply-store::after {
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  width: 0.7rem;
+  height: 0.4rem;
+  margin-left: 0.4rem;
+  background-image: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
+  background-position-x: -153px;
+  background-position-y: -36px;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

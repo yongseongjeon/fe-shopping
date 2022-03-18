@@ -1,4 +1,4 @@
-import { autoComplete, recentSearch } from "../../data.js";
+import { recentSearch } from "../../data.js";
 import {
   $,
   delay,
@@ -6,7 +6,6 @@ import {
   clearLocalStorage,
   saveLocalStorage,
   show,
-  showOrHideToggle,
 } from "../../utils.js";
 import Component from "/frontend/js/Component.js";
 
