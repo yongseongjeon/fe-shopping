@@ -37,7 +37,7 @@ body {
 .select-category ul {
   background-color: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
-  transition: 1s;
+  transition: 0.3s;
   height: fit-content;
   transform: scaleY(0);
   perspective: 1000px;
@@ -186,7 +186,7 @@ ol strong {
   font-size: 1.2rem;
 }
 .header .right {
-  margin-top: 3rem;
+  margin-top: 1.8rem;
 }
 
 .logo {

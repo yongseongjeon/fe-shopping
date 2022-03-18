@@ -109,5 +109,19 @@ function searchFooterBtnHandler(e) {
 
 function selectCategoryHandler(e) {
   const categoryEl = $(".select-category ul");
-  categoryEl.style.transform = "scaleY(1)";
+  const { transform } = categoryEl.style;
+  const isClosed = transform === "scaleY(0)";
+  if (isClosed) {
+    openDropdown(categoryEl);
+    return;
+  }
+  closeDropdown(categoryEl);
+}
+
+function openDropdown(el) {
+  el.style.transform = "scaleY(1)";
+}
+
+function closeDropdown(el) {
+  el.style.transform = "scaleY(0)";
 }
