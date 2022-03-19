@@ -1,4 +1,4 @@
-import { recentSearch } from "../../data.js";
+import { recentSearch, subCategories } from "../../data.js";
 import {
   $,
   delay,
@@ -24,12 +24,10 @@ SearchForm.prototype.template = function () {
       <button class="button-down"></button>
     </div>
       <ul>
-        <li>전체</li>
-        <li>여성패션</li>
-        <li>남성패션</li>
-        <li>남녀 공동 의류</li>
-        <li>유아동패션</li>
-        <li>뷰티</li>
+        ${subCategories.reduce(
+          (acc, category) => acc + `<li>${category}</li>`,
+          ""
+        )}
       </ul>
     </div>
     <div class="flex-row">
