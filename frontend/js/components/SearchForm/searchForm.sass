@@ -1,0 +1,108 @@
+$icon-search: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png)
+$icon-mic: url(https://img1a.coupangcdn.com/image/coupang/common/ic_mic.png)
+
+.search-form
+  width: 54.2rem
+  height: 3.8rem
+  border: 2px solid rgb(66, 133, 244)
+
+@keyframes growDown
+  transform: scaleY(0)
+  transform: scaleY(1.1)
+  transform: scaleY(1)
+
+.select-category
+  width: 13.5rem
+  min-height: 3.8rem
+  ul
+    background-color: #fff
+    box-shadow: 0 4px 5px rgb(0 0 0 / 30%)
+    transition: 0.3s
+    height: fit-content
+    transform: scaleY(0)
+    perspective: 1000px
+    padding: 1rem
+    animation: growDown 300ms ease-in-out forwards
+    transform-origin: top center
+
+    li
+      padding-top: 0.7rem
+      padding-bottom: 0.7rem
+      cursor: pointer
+      font-size: 1.2rem
+    li:hover
+      color: #3498db
+      text-decoration: underline
+
+.selected
+  width: 11.1rem
+  height: 3.3rem
+  padding: 1rem
+  box-sizing: border-box
+  font-size: 1.2rem
+  cursor: pointer
+
+.button-down
+  width: 3rem
+  height: 3rem
+  border: 0
+  margin-top: 0.3rem
+  @include set-icon($icon-search, $x: 6px, $y: -165px)
+  background-repeat: no-repeat
+  background-color: #fff
+
+.search-input
+  width: 33.3rem
+
+  input
+    width: 33.3rem
+    min-height: 3.8rem
+    font-size: 1.6rem
+    padding: 1rem
+    border: 0
+    border-left: 1px solid rgb(133, 133, 133)
+    box-sizing: border-box
+    
+.icon-mic
+  width: 2.6rem
+  height: 2.6rem
+  background-size: 2rem 4.8rem
+  @include set-icon($icon-mic, $x: 3px, $y: 1px)
+  @include move($down: 0.5rem)
+
+.icon-search
+  width: 5rem
+  height: 3.9rem
+  @include set-icon($icon-search, $x: -112px, $y: -71px)
+
+.recent
+  font-size: 2rem
+  box-shadow: 0 4px 5px rgb(0 0 0 / 30%)
+  background-color: #fff
+  display: none
+  position: relative
+
+  h3
+    padding: 1rem
+    border-bottom: 1px solid #bdc3c7
+
+  ol
+    padding: 1rem
+
+    li
+      padding: 0.5rem
+      cursor: pointer
+    li:hover
+      color: #3498db
+      text-decoration: underline
+
+.search-footer
+  height: 3.2rem
+  justify-content: space-between
+  background-color: #f5f5f5
+  border-top: 1px solid #bdc3c7
+
+  button
+    border: 0
+    color: #888
+    cursor: pointer

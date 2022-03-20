@@ -1,0 +1,18 @@
+.top-bar
+  width: 100%
+  font-size: 1.1rem
+  justify-content: space-around
+  background-color: #f0f0f0
+
+  div
+    margin: 0.5rem
+    cursor: pointer
+
+.apply-store::after
+  display: inline-block
+  vertical-align: middle
+  content: ''
+  width: 0.7rem
+  height: 0.4rem
+  margin-left: 0.4rem
+  @include set-icon($icon-search, $x: -153px, $y: -36px)
