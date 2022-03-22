@@ -123,6 +123,10 @@ function closeDropdown() {
 
 function listClickHandler(e) {
   const { name } = e.target.dataset;
-  $(".selected").innerText = name;
+  selectCategory(name);
   closeDropdown();
+}
+
+function selectCategory(category) {
+  $(".selected").innerText = category;
 }
