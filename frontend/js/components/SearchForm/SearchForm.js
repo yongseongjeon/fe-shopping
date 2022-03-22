@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { recentSearch } from "../../data.js";
+=======
+import { recentSearch, subCategories } from "../../data.js";
+>>>>>>> step2
 import {
   $,
   delay,
@@ -24,12 +28,16 @@ SearchForm.prototype.template = function () {
       <button class="button-down"></button>
     </div>
       <ul>
+<<<<<<< HEAD
         <li>전체</li>
         <li>여성패션</li>
         <li>남성패션</li>
         <li>남녀 공동 의류</li>
         <li>유아동패션</li>
         <li>뷰티</li>
+=======
+      ${subCategories.reduce((acc, el) => acc + `<li>${el}</li>`, "")}
+>>>>>>> step2
       </ul>
     </div>
     <div class="flex-row">
@@ -38,7 +46,11 @@ SearchForm.prototype.template = function () {
         <div class="recent">
           <h3>최근 검색어</h3>
           <ol>
+<<<<<<< HEAD
             ${recentSearch.reduce((acc, x) => acc + `<li>${x}</li>`, "")}
+=======
+            ${recentSearch.reduce((acc, el) => acc + `<li>${el}</li>`, "")}
+>>>>>>> step2
           </ol>
           <div class="search-footer flex-row">
             <button data-name="전체삭제">전체삭제</button>
@@ -115,6 +127,10 @@ function selectCategoryHandler(e) {
     openDropdown(categoryEl);
     return;
   }
+<<<<<<< HEAD
+=======
+  console.log(e.target);
+>>>>>>> step2
   closeDropdown(categoryEl);
 }
 

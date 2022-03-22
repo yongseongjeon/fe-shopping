@@ -12,11 +12,15 @@ export function hide(el) {
 
 export function showOrHideToggle(el) {
   const isHide = el.style.display === "none";
+<<<<<<< HEAD
   if (isHide) {
     show(el);
     return;
   }
   hide(el);
+=======
+  isHide ? show(el) : hide(el);
+>>>>>>> step2
 }
 
 export function saveLocalStorage(key, value) {
