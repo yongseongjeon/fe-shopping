@@ -34,13 +34,19 @@ SearchForm.prototype.template = function () {
       <div class="search-input flex-col">
         <input placeholder="찾고 싶은 상품을 검색해보세요!"></input>
         <div class="recent">
-          <h3>최근 검색어</h3>
-          <ol>
-            ${recentSearch.reduce((acc, el) => acc + `<li>${el}</li>`, "")}
-          </ol>
+          <div class="recent-search">
+            <h3>최근 검색어</h3>
+            <ol>
+              ${recentSearch.reduce((acc, el) => acc + `<li>${el}</li>`, "")}
+            </ol>
+          </div>
+          <div class="history-off-msg__container hide">
+            <div class="history-off-msg">최근 검색어 저장 기능이 꺼져 있습니다.</div>
+          </div>
           <div class="search-footer flex-row">
             <button data-name="전체삭제">전체삭제</button>
-            <button data-name="최근검색어끄기">최근검색어끄기</button>
+            <button class="recent-search-off-btn" data-name="최근검색어끄기">최근검색어끄기</button>
+            <button class="recent-search-on-btn hide" data-name="최근검색어켜기">최근검색어켜기</button>
           </div>
         </div>
         <div class="recommend">
@@ -110,7 +116,17 @@ function searchFooterBtnHandler(e) {
     return;
   }
   if (name === "최근검색어끄기") {
-    hide($(".recent"));
+    $(".recent-search").classList.add("hide");
+    $(".history-off-msg__container").classList.remove("hide");
+    $(".recent-search-off-btn").classList.add("hide");
+    $(".recent-search-on-btn").classList.remove("hide");
+    return;
+  }
+  if (name === "최근검색어켜기") {
+    $(".recent-search").classList.remove("hide");
+    $(".history-off-msg__container").classList.add("hide");
+    $(".recent-search-on-btn").classList.add("hide");
+    $(".recent-search-off-btn").classList.remove("hide");
     return;
   }
 }
