@@ -4,8 +4,6 @@ export const recentSearch = getLocalStorage("recentSearch")
   ? getLocalStorage("recentSearch").split(",")
   : [];
 
-<<<<<<< HEAD
-=======
 export const subCategories = [
   "전체",
   "여성패션",
@@ -40,7 +38,6 @@ export const subCategories = [
   "실버스토어",
 ];
 
->>>>>>> step2
 export const autoComplete = {
   아: [
     {
