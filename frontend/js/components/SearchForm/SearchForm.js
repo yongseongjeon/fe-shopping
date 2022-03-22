@@ -69,11 +69,7 @@ function recentSearchFocusHandler(e) {
   const recentEl = $(".recent");
   const recommendEl = $(".recommend");
   const inputEl = $(".search-input input");
-  if (inputEl.value) {
-    show(recommendEl);
-    return;
-  }
-  show(recentEl);
+  inputEl.value ? show(recommendEl) : show(recentEl);
 }
 
 function recentSearchBlurHandler(e) {
