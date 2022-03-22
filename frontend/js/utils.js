@@ -19,6 +19,10 @@ export function saveLocalStorage(key, value) {
   return localStorage.setItem(key, `${getLocalStorage(key) || ""}${value},`);
 }
 
+export function setLocalStorage(key, value) {
+  return localStorage.setItem(key, value);
+}
+
 export function getLocalStorage(key) {
   return localStorage.getItem(key);
 }

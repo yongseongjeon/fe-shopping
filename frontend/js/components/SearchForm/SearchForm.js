@@ -6,11 +6,23 @@ import {
   clearLocalStorage,
   saveLocalStorage,
   show,
+  getLocalStorage,
+  setLocalStorage,
 } from "../../utils.js";
 import Component from "/frontend/js/Component.js";
 
 export default function SearchForm(target) {
   Component.call(this, target);
+
+  (function renderWhetherOnRecentSearch() {
+    if (getLocalStorage("isOnRecentSearch") === "true") {
+      $(".history-off-msg__container").classList.add("hide");
+      $(".recent-search-on-btn").classList.add("hide");
+    } else {
+      $(".recent-search").classList.add("hide");
+      $(".recent-search-off-btn").classList.add("hide");
+    }
+  })();
 }
 
 SearchForm.prototype = Object.create(Component.prototype);
@@ -40,13 +52,13 @@ SearchForm.prototype.template = function () {
               ${recentSearch.reduce((acc, el) => acc + `<li>${el}</li>`, "")}
             </ol>
           </div>
-          <div class="history-off-msg__container hide">
+          <div class="history-off-msg__container">
             <div class="history-off-msg">최근 검색어 저장 기능이 꺼져 있습니다.</div>
           </div>
           <div class="search-footer flex-row">
             <button data-name="전체삭제">전체삭제</button>
             <button class="recent-search-off-btn" data-name="최근검색어끄기">최근검색어끄기</button>
-            <button class="recent-search-on-btn hide" data-name="최근검색어켜기">최근검색어켜기</button>
+            <button class="recent-search-on-btn" data-name="최근검색어켜기">최근검색어켜기</button>
           </div>
         </div>
         <div class="recommend">
@@ -98,9 +110,12 @@ function reload() {
   document.location.reload();
 }
 
-function searchBtnHandler(e) {
+function searchBtnHandler() {
   const inputEl = $(".search-input input");
-  saveLocalStorage("recentSearch", inputEl.value);
+  const isOnRecentSearch = getLocalStorage("isOnRecentSearch");
+  if (isOnRecentSearch === "true") {
+    saveLocalStorage("recentSearch", inputEl.value);
+  }
   clearValue(inputEl);
 }
 
@@ -120,6 +135,7 @@ function searchFooterBtnHandler(e) {
     $(".history-off-msg__container").classList.remove("hide");
     $(".recent-search-off-btn").classList.add("hide");
     $(".recent-search-on-btn").classList.remove("hide");
+    setLocalStorage("isOnRecentSearch", "false");
     return;
   }
   if (name === "최근검색어켜기") {
@@ -127,6 +143,7 @@ function searchFooterBtnHandler(e) {
     $(".history-off-msg__container").classList.add("hide");
     $(".recent-search-on-btn").classList.add("hide");
     $(".recent-search-off-btn").classList.remove("hide");
+    setLocalStorage("isOnRecentSearch", "true");
     return;
   }
 }
