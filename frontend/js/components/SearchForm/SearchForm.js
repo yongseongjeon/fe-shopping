@@ -24,7 +24,7 @@ SearchForm.prototype.template = function () {
       <button class="button-down"></button>
     </div>
       <ul>
-      ${subCategories.reduce((acc, el) => acc + createListEl(el), "")}
+      ${subCategories.reduce((acc, el) => acc + `<li>${el}</li>`, "")}
       </ul>
     </div>
     <div class="flex-row">
@@ -33,7 +33,7 @@ SearchForm.prototype.template = function () {
         <div class="recent">
           <h3>최근 검색어</h3>
           <ol>
-            ${recentSearch.reduce((acc, el) => acc + createListEl(el), "")}
+            ${recentSearch.reduce((acc, el) => acc + `<li>${el}</li>`, "")}
           </ol>
           <div class="search-footer flex-row">
             <button data-name="전체삭제">전체삭제</button>
@@ -60,10 +60,6 @@ SearchForm.prototype.addEvent = function () {
   iconSearchEl.addEventListener("click", searchBtnHandler);
   selectedEl.addEventListener("click", selectCategoryHandler);
 };
-
-function createListEl(el) {
-  return `<li>${el}</li>`;
-}
 
 function recentSearchFocusHandler(e) {
   const recentEl = $(".recent");
@@ -114,6 +110,7 @@ function selectCategoryHandler(e) {
     openDropdown(categoryEl);
     return;
   }
+  console.log(e.target);
   closeDropdown(categoryEl);
 }
 

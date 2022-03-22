@@ -12,11 +12,7 @@ export function hide(el) {
 
 export function showOrHideToggle(el) {
   const isHide = el.style.display === "none";
-  if (isHide) {
-    show(el);
-    return;
-  }
-  hide(el);
+  isHide ? show(el) : hide(el);
 }
 
 export function saveLocalStorage(key, value) {
