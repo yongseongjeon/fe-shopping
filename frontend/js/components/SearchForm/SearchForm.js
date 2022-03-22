@@ -59,7 +59,7 @@ SearchForm.prototype.addEvent = function () {
   const selectedEl = $(".selected-container");
   inputEl.addEventListener("focus", recentSearchFocusHandler);
   inputEl.addEventListener("blur", recentSearchBlurHandler);
-  searchFooterEl.addEventListener("click", searchFooterBtnHandler);
+  searchFooterEl.addEventListener("mousedown", searchFooterBtnHandler);
   iconSearchEl.addEventListener("click", searchBtnHandler);
   selectedEl.addEventListener("click", selectCategoryHandler);
   $(".select-category ul").addEventListener("click", listClickHandler);
@@ -75,7 +75,7 @@ function recentSearchFocusHandler(e) {
 function recentSearchBlurHandler(e) {
   const recentEl = $(".recent");
   const recommendEl = $(".recommend");
-  delay(200).then(() => hide(recentEl));
+  hide(recentEl);
   hide(recommendEl);
 }
 
