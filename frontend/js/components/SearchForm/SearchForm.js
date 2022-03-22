@@ -110,11 +110,7 @@ function selectCategoryHandler(e) {
   const categoryEl = $(".select-category ul");
   const { transform } = categoryEl.style;
   const isClosed = transform === "scaleY(0)" || transform === "";
-  if (isClosed) {
-    openDropdown();
-    return;
-  }
-  closeDropdown();
+  isClosed ? openDropdown() : closeDropdown();
 }
 
 function openDropdown() {
