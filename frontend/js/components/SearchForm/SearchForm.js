@@ -109,8 +109,7 @@ function searchFooterBtnHandler(e) {
 function selectCategoryHandler(e) {
   const categoryEl = $(".select-category ul");
   const { transform } = categoryEl.style;
-  const isClosed = transform === "scaleY(0)";
-  console.log(e.target);
+  const isClosed = transform === "scaleY(0)" || transform === "";
   if (isClosed) {
     openDropdown();
     return;
