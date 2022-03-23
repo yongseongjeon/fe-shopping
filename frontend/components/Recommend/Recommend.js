@@ -34,7 +34,7 @@ export default class Recommend {
 
   addEvent() {
     const inputEl = $(".search-input input");
-    inputEl.addEventListener("keyup", autoCompleteHandler.bind(this));
+    inputEl.addEventListener("input", autoCompleteHandler.bind(this));
     inputEl.addEventListener("keydown", recommendKeyHandler);
   }
 }
@@ -45,20 +45,17 @@ function autoCompleteHandler(e) {
   const recommendEl = $(".recommend");
   const autoCompleteList = autoComplete[inputEl.value];
   const hasChangedKeyword = this.recommendList !== autoCompleteList;
-  const isPressArrowKey = e.keyCode === 38 || e.keyCode === 40;
-  console.log("e.keyCode", e.keyCode);
   if (autoCompleteList) {
     hide(recentEl);
   }
-  if (hasChangedKeyword && !isPressArrowKey) {
+  if (hasChangedKeyword) {
     show(recommendEl);
     this.recommendList = autoCompleteList;
     this.searchKeyword = inputEl.value;
-    console.log("리랜더링 됐습니다.");
     this.render();
     return;
   }
-  const isPressBackspace = e.keyCode === 8;
+  const isPressBackspace = e.key === "Backspace";
   if (isPressBackspace && inputEl.value === "") {
     hide(recommendEl);
     show(recentEl);
@@ -67,9 +64,9 @@ function autoCompleteHandler(e) {
 }
 
 function recommendKeyHandler(e) {
-  const isPressEnter = e.keyCode === 13;
-  const isPressUp = e.keyCode === 38;
-  const isPressDown = e.keyCode === 40;
+  const isPressEnter = e.key === "Enter";
+  const isPressUp = e.key === "ArrowUp";
+  const isPressDown = e.key === "ArrowDown";
   const LAST_INDEX = 9;
   const isFocusInput = searchFormModel.getCurIdx() === -1;
   const prevIdx = isFocusInput ? 0 : searchFormModel.getCurIdx();
@@ -97,10 +94,11 @@ function recommendKeyHandler(e) {
 
 function selectRecommendKeyword(prev, cur) {
   const recommendOlEl = $(".recommend ol");
+  const inputEl = $(".search-input input");
   recommendOlEl.children[prev].classList.remove("search-selected");
   recommendOlEl.children[cur].classList.add("search-selected");
   const selectedKeyword = recommendOlEl.children[cur].innerText;
-  $(".search-input input").value = selectedKeyword;
+  inputEl.value = selectedKeyword;
 }
 
 function reload() {
