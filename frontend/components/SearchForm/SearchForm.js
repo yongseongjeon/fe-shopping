@@ -1,7 +1,6 @@
 import { recentSearch, subCategories } from "/frontend/js/data.js";
 import {
   $,
-  delay,
   hide,
   clearLocalStorage,
   saveLocalStorage,
@@ -14,15 +13,7 @@ import Component from "/frontend/js/Component.js";
 export default function SearchForm(target) {
   Component.call(this, target);
 
-  (function renderWhetherOnRecentSearch() {
-    if (getLocalStorage("isOnRecentSearch") === "true") {
-      $(".history-off-msg__container").classList.add("hide");
-      $(".recent-search-on-btn").classList.add("hide");
-      return;
-    }
-    $(".recent-search").classList.add("hide");
-    $(".recent-search-off-btn").classList.add("hide");
-  })();
+  renderRecentSearch();
 }
 
 SearchForm.prototype = Object.create(Component.prototype);
@@ -84,6 +75,24 @@ SearchForm.prototype.addEvent = function () {
   selectedEl.addEventListener("click", selectCategoryHandler);
   selectCategoryEl.addEventListener("click", listClickHandler);
 };
+
+function renderRecentSearch() {
+  const isOnRecentSearch = getLocalStorage("isOnRecentSearch") === "true";
+  if (isOnRecentSearch) {
+    showRecentSearch();
+    return;
+  }
+  hideRecentSearch();
+
+  function showRecentSearch() {
+    $(".history-off-msg__container").classList.add("hide");
+    $(".recent-search-on-btn").classList.add("hide");
+  }
+  function hideRecentSearch() {
+    $(".recent-search").classList.add("hide");
+    $(".recent-search-off-btn").classList.add("hide");
+  }
+}
 
 function recentSearchFocusHandler(e) {
   const recentEl = $(".recent");
