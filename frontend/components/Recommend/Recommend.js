@@ -44,8 +44,10 @@ function autoCompleteHandler(e) {
   const recommendEl = $(".recommend");
   const autoCompleteList = autoComplete[inputEl.value];
   const hasChangedKeyword = this.recommendList !== autoCompleteList;
-  if (hasChangedKeyword) {
+  if (autoCompleteList) {
     hide(recentEl);
+  }
+  if (hasChangedKeyword) {
     show(recommendEl);
     this.recommendList = autoCompleteList;
     this.searchKeyword = inputEl.value;
@@ -70,21 +72,25 @@ function recommendKeyHandler(e) {
     reload();
     return;
   }
+  const isFocusInput = searchFormModel.getCurIdx() === -1;
   if (isPressUp) {
-    const isFocusInput = searchFormModel.getCurIdx() === -1;
+    const recommendOlEl = $(".recommend ol");
     if (isFocusInput) {
       searchFormModel.setCurIdx(LAST_INDEX + 1);
     }
+    const prevIdx = isFocusInput ? 0 : searchFormModel.getCurIdx();
     searchFormModel.minusCurIdx();
-    const recommendOlEl = $(".recommend ol");
     const idx = searchFormModel.getCurIdx();
+    recommendOlEl.children[prevIdx].classList.remove("search-selected");
     recommendOlEl.children[idx].classList.add("search-selected");
     return;
   }
   if (isPressDown) {
-    searchFormModel.plusCurIdx();
     const recommendOlEl = $(".recommend ol");
+    const prevIdx = isFocusInput ? 0 : searchFormModel.getCurIdx();
+    searchFormModel.plusCurIdx();
     const idx = searchFormModel.getCurIdx();
+    recommendOlEl.children[prevIdx].classList.remove("search-selected");
     recommendOlEl.children[idx].classList.add("search-selected");
     return;
   }
