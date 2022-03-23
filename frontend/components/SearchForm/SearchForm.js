@@ -27,10 +27,7 @@ SearchForm.prototype.template = function () {
       <button class="button-down"></button>
     </div>
       <ul>
-      ${subCategories.reduce(
-        (acc, el) => acc + `<li data-name="${el}">${el}</li>`,
-        ""
-      )}
+        ${createListEl(subCategories)}
       </ul>
     </div>
     <div class="flex-row">
@@ -40,7 +37,7 @@ SearchForm.prototype.template = function () {
           <div class="recent-search">
             <h3>최근 검색어</h3>
             <ol>
-              ${recentSearch.reduce((acc, el) => acc + `<li>${el}</li>`, "")}
+              ${createListEl(recentSearch)}
             </ol>
           </div>
           <div class="history-off-msg__container">
@@ -75,6 +72,10 @@ SearchForm.prototype.addEvent = function () {
   selectedEl.addEventListener("click", selectCategoryHandler);
   selectCategoryEl.addEventListener("click", listClickHandler);
 };
+
+function createListEl(el) {
+  return el.reduce((acc, el) => acc + `<li data-name="${el}">${el}</li>`, "");
+}
 
 function renderRecentSearch() {
   const isOnRecentSearch = getLocalStorage("isOnRecentSearch") === "true";
