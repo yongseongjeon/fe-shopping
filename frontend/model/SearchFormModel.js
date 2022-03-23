@@ -2,7 +2,13 @@ const LAST_INDEX = 9;
 
 class SearchFormModel {
   constructor() {
-    this.curIdx = 0;
+    this.curIdx = -1;
+  }
+  getCurIdx() {
+    return this.curIdx;
+  }
+  setCurIdx(idx) {
+    this.curIdx = idx;
   }
   plusCurIdx() {
     this.curIdx = (this.curIdx + 1) % 10;

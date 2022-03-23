@@ -67,7 +67,6 @@ SearchForm.prototype.addEvent = function () {
   const selectCategoryEl = $(".select-category ul");
   inputEl.addEventListener("focus", recentSearchFocusHandler);
   inputEl.addEventListener("blur", recentSearchBlurHandler);
-  inputEl.addEventListener("keydown", recentSearchKeyHandler);
   searchFooterEl.addEventListener("mousedown", searchFooterBtnHandler);
   iconSearchEl.addEventListener("click", searchBtnHandler);
   selectedEl.addEventListener("click", selectCategoryHandler);
@@ -108,25 +107,6 @@ function recentSearchBlurHandler(e) {
   const recommendEl = $(".recommend");
   hide(recentEl);
   hide(recommendEl);
-}
-
-function recentSearchKeyHandler(e) {
-  const isPressEnter = e.keyCode === 13;
-  const isPressUp = e.keyCode === 38;
-  const isPressDown = e.keyCode === 40;
-  if (isPressEnter) {
-    searchBtnHandler();
-    reload();
-    return;
-  }
-  if (isPressUp) {
-    searchFormModel.minusCurIdx();
-    return;
-  }
-  if (isPressDown) {
-    searchFormModel.plusCurIdx();
-    return;
-  }
 }
 
 function reload() {
