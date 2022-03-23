@@ -1,5 +1,5 @@
-import { autoComplete } from "../../data.js";
-import { $, hide, show } from "../../utils.js";
+import { autoComplete } from "/frontend/js/data.js";
+import { $, hide, show } from "/frontend/js/utils.js";
 
 export default class Recommend {
   constructor(target) {

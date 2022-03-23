@@ -1,4 +1,4 @@
-import { recentSearch, subCategories } from "../../data.js";
+import { recentSearch, subCategories } from "/frontend/js/data.js";
 import {
   $,
   delay,
@@ -8,7 +8,7 @@ import {
   show,
   getLocalStorage,
   setLocalStorage,
-} from "../../utils.js";
+} from "/frontend/js/utils.js";
 import Component from "/frontend/js/Component.js";
 
 export default function SearchForm(target) {
@@ -105,12 +105,7 @@ function recentSearchKeyHandler(e) {
     searchBtnHandler();
     reload();
   }
-  const isPressDown = e.keyCode === 40;
-  const isPressUp = e.keyCode === 38;
-  let curIdx = 0;
-  if (isPressDown) {
-    curIdx += 1;
-  }
+  console.log(e.keyCode);
 }
 
 function reload() {

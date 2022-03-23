@@ -1,4 +1,5 @@
-import Component from "../../Component.js";
+// import Component from "../../Component.js";
+import Component from "/frontend/js/Component.js";
 
 export class Header extends Component {
   constructor(target) {

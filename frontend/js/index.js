@@ -1,7 +1,7 @@
-import { Header } from "./components/Header/Header.js";
-import Recommend from "./components/Recommend/Recommend.js";
-import SearchForm from "./components/SearchForm/SearchForm.js";
-import { TopBar } from "./components/TopBar/topBar.js";
+import { Header } from "/frontend/components/Header/Header.js";
+import Recommend from "/frontend/components/Recommend/Recommend.js";
+import SearchForm from "/frontend/components/SearchForm/SearchForm.js";
+import { TopBar } from "/frontend/components/TopBar/topBar.js";
 import { $ } from "./utils.js";
 
 const headerEl = $(".header");
