@@ -109,10 +109,6 @@ function recentSearchBlurHandler(e) {
   hide(recommendEl);
 }
 
-function reload() {
-  document.location.reload();
-}
-
 function searchBtnHandler() {
   const inputEl = $(".search-input input");
   const isOnRecentSearch = getLocalStorage("isOnRecentSearch");
@@ -175,3 +171,5 @@ function listClickHandler(e) {
 function selectCategory(category) {
   $(".selected").innerText = category;
 }
+
+export { searchBtnHandler };

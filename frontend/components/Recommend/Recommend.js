@@ -1,4 +1,5 @@
 import { searchFormModel } from "../../model/SearchFormModel.js";
+import { searchBtnHandler } from "../SearchForm/SearchForm.js";
 import { autoComplete } from "/frontend/js/data.js";
 import { $, hide, show } from "/frontend/js/utils.js";
 
@@ -44,13 +45,16 @@ function autoCompleteHandler(e) {
   const recommendEl = $(".recommend");
   const autoCompleteList = autoComplete[inputEl.value];
   const hasChangedKeyword = this.recommendList !== autoCompleteList;
+  const isPressArrowKey = e.keyCode === 38 || e.keyCode === 40;
+  console.log("e.keyCode", e.keyCode);
   if (autoCompleteList) {
     hide(recentEl);
   }
-  if (hasChangedKeyword) {
+  if (hasChangedKeyword && !isPressArrowKey) {
     show(recommendEl);
     this.recommendList = autoCompleteList;
     this.searchKeyword = inputEl.value;
+    console.log("리랜더링 됐습니다.");
     this.render();
     return;
   }
@@ -67,31 +71,38 @@ function recommendKeyHandler(e) {
   const isPressUp = e.keyCode === 38;
   const isPressDown = e.keyCode === 40;
   const LAST_INDEX = 9;
+  const isFocusInput = searchFormModel.getCurIdx() === -1;
+  const prevIdx = isFocusInput ? 0 : searchFormModel.getCurIdx();
   if (isPressEnter) {
     searchBtnHandler();
     reload();
     return;
   }
-  const isFocusInput = searchFormModel.getCurIdx() === -1;
   if (isPressUp) {
-    const recommendOlEl = $(".recommend ol");
     if (isFocusInput) {
       searchFormModel.setCurIdx(LAST_INDEX + 1);
     }
-    const prevIdx = isFocusInput ? 0 : searchFormModel.getCurIdx();
     searchFormModel.minusCurIdx();
-    const idx = searchFormModel.getCurIdx();
-    recommendOlEl.children[prevIdx].classList.remove("search-selected");
-    recommendOlEl.children[idx].classList.add("search-selected");
+    const curIdx = searchFormModel.getCurIdx();
+    selectRecommendKeyword(prevIdx, curIdx);
     return;
   }
   if (isPressDown) {
-    const recommendOlEl = $(".recommend ol");
-    const prevIdx = isFocusInput ? 0 : searchFormModel.getCurIdx();
     searchFormModel.plusCurIdx();
-    const idx = searchFormModel.getCurIdx();
-    recommendOlEl.children[prevIdx].classList.remove("search-selected");
-    recommendOlEl.children[idx].classList.add("search-selected");
+    const curIdx = searchFormModel.getCurIdx();
+    selectRecommendKeyword(prevIdx, curIdx);
     return;
   }
+}
+
+function selectRecommendKeyword(prev, cur) {
+  const recommendOlEl = $(".recommend ol");
+  recommendOlEl.children[prev].classList.remove("search-selected");
+  recommendOlEl.children[cur].classList.add("search-selected");
+  const selectedKeyword = recommendOlEl.children[cur].innerText;
+  $(".search-input input").value = selectedKeyword;
+}
+
+function reload() {
+  document.location.reload();
 }
