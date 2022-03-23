@@ -9,6 +9,7 @@ import {
   setLocalStorage,
 } from "/frontend/js/utils.js";
 import Component from "/frontend/js/Component.js";
+import { searchFormModel } from "../../model/SearchFormModel.js";
 
 export default function SearchForm(target) {
   Component.call(this, target);
@@ -111,11 +112,21 @@ function recentSearchBlurHandler(e) {
 
 function recentSearchKeyHandler(e) {
   const isPressEnter = e.keyCode === 13;
+  const isPressUp = e.keyCode === 38;
+  const isPressDown = e.keyCode === 40;
   if (isPressEnter) {
     searchBtnHandler();
     reload();
+    return;
   }
-  console.log(e.keyCode);
+  if (isPressUp) {
+    searchFormModel.minusCurIdx();
+    return;
+  }
+  if (isPressDown) {
+    searchFormModel.plusCurIdx();
+    return;
+  }
 }
 
 function reload() {
