@@ -1,37 +1,50 @@
-export function $(selector) {
+function $(selector) {
   return document.querySelector(selector);
 }
 
-export function show(el) {
+function show(el) {
   el.style.display = "block";
 }
 
-export function hide(el) {
+function hide(el) {
   el.style.display = "none";
 }
 
-export function showOrHideToggle(el) {
-  const isHide = el.style.display === "none";
-  isHide ? show(el) : hide(el);
-}
-
-export function saveLocalStorage(key, value) {
+function saveLocalStorage(key, value) {
   return localStorage.setItem(key, `${getLocalStorage(key) || ""}${value},`);
 }
 
-export function setLocalStorage(key, value) {
+function setLocalStorage(key, value) {
   return localStorage.setItem(key, value);
 }
 
-export function getLocalStorage(key) {
+function getLocalStorage(key) {
   return localStorage.getItem(key);
 }
 
-export function clearLocalStorage(key) {
+function clearLocalStorage(key) {
   return localStorage.setItem(key, "");
 }
 
-export const delay = (ms) =>
+const delay = (ms) =>
   new Promise((res) => {
     setTimeout(() => res(), ms);
   });
+
+let debounceTimer;
+const debounce = (callback, ms) => {
+  window.clearTimeout(debounceTimer);
+  debounceTimer = window.setTimeout(callback, ms);
+};
+
+export {
+  $,
+  show,
+  hide,
+  saveLocalStorage,
+  setLocalStorage,
+  getLocalStorage,
+  clearLocalStorage,
+  delay,
+  debounce,
+};

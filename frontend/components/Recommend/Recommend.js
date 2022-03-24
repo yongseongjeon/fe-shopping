@@ -1,3 +1,4 @@
+import { debounce } from "../../js/utils.js";
 import { searchFormModel } from "../../model/SearchFormModel.js";
 import { searchBtnHandler } from "../SearchForm/SearchForm.js";
 import { autoComplete } from "/frontend/js/data.js";
@@ -49,10 +50,8 @@ function autoCompleteHandler(e) {
     hide(recentEl);
   }
   if (hasChangedKeyword) {
-    show(recommendEl);
-    this.recommendList = autoCompleteList;
-    this.searchKeyword = inputEl.value;
-    this.render();
+    const DELAY_MS = 500;
+    debounce(() => handleRerendering({ Recommend: this }), DELAY_MS);
     return;
   }
   const isPressBackspace = e.key === "Backspace";
@@ -60,6 +59,12 @@ function autoCompleteHandler(e) {
     hide(recommendEl);
     show(recentEl);
     return;
+  }
+  function handleRerendering({ Recommend }) {
+    show(recommendEl);
+    Recommend.recommendList = autoCompleteList;
+    Recommend.searchKeyword = inputEl.value;
+    Recommend.render();
   }
 }
 
