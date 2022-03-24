@@ -166,3 +166,5 @@ export const autoComplete = {
     },
   ],
 };
+
+console.log(JSON.stringify(autoComplete));
