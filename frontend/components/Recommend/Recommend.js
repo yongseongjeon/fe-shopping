@@ -1,7 +1,6 @@
 import { debounce, reload } from "../../js/utils.js";
 import { searchFormModel } from "../../model/SearchFormModel.js";
-import { handleSearchBtn } from "../SearchForm/SearchForm.js";
-import { autoComplete } from "/frontend/js/data.js";
+import { handleSearchBtn } from "../../components/SearchForm/SearchForm.js";
 import { $, hide, show } from "/frontend/js/utils.js";
 
 export default class Recommend {
@@ -40,10 +39,14 @@ export default class Recommend {
   }
 }
 
-function autoCompleteHandler(e) {
+async function autoCompleteHandler(e) {
   const inputEl = $(".search-input input");
   const recentEl = $(".recent");
   const recommendEl = $(".recommend");
+
+  let autoComplete = await fetch("http://localhost:3000/search");
+  autoComplete = await autoComplete.json();
+
   const autoCompleteList = autoComplete[inputEl.value];
   const hasChangedKeyword = this.recommendList !== autoCompleteList;
   if (autoCompleteList) {
