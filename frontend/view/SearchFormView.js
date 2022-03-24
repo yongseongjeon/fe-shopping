@@ -10,7 +10,7 @@ import {
 } from "../js/utils.js";
 import Component from "../js/Component.js";
 import { reload } from "../js/utils.js";
-import { searchFormModel } from "../model/SearchFormModel.js";
+// import { searchFormModel } from "../model/SearchFormModel.js";
 
 export default function SearchFormView(target) {
   Component.call(this, target);
@@ -101,7 +101,7 @@ function handleInputFocus() {
   const recommendEl = $(".recommend");
   const inputEl = $(".search-input input");
   const FIRST_IDX = -1;
-  searchFormModel.setCurIdx(FIRST_IDX);
+  // searchFormModel.setCurIdx(FIRST_IDX);
   inputEl.value ? show(recommendEl) : show(recentEl);
 }
 
@@ -111,6 +111,7 @@ function handleInputBlur() {
   hide(recentEl);
   hide(recommendEl);
   deleteUnderlineAtList();
+
   function deleteUnderlineAtList() {
     const selected = $(".search-selected");
     if (selected) {
@@ -164,7 +165,7 @@ function handleSearchFooter(e) {
   }
 }
 
-function handleCategorySelection(e) {
+function handleCategorySelection() {
   const categoryEl = $(".select-category ul");
   const { transform } = categoryEl.style;
   const isClosed = transform === "scaleY(0)" || transform === "";
@@ -178,7 +179,7 @@ function handleCategorySelection(e) {
   }
 }
 
-function handleList(e) {
+function handleList() {
   const { name } = e.target.dataset;
   selectCategory(name);
   closeDropdown();
@@ -187,5 +188,3 @@ function handleList(e) {
     $(".selected").innerText = category;
   }
 }
-
-export { handleSearchBtn };
