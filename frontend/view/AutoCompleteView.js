@@ -1,9 +1,9 @@
-import { debounce, reload } from "../../js/utils.js";
-import { searchFormModel } from "../../model/SearchFormModel.js";
-import { handleSearchBtn } from "../../components/SearchForm/SearchForm.js";
-import { $, hide, show } from "/frontend/js/utils.js";
+import { debounce, reload } from "../js/utils.js";
+import { searchFormModel } from "../model/SearchFormModel.js";
+import { handleSearchBtn } from "../View/SearchFormView.js";
+import { $, hide, show } from "../js/utils.js";
 
-export default class Recommend {
+export default class AutoCompleteView {
   constructor(target) {
     this.target = target;
     this.recommendList = [];

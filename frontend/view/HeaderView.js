@@ -1,6 +1,6 @@
 import Component from "/frontend/js/Component.js";
 
-export class Header extends Component {
+class HeaderView extends Component {
   constructor(target) {
     super(target);
   }
@@ -40,3 +40,5 @@ export class Header extends Component {
     `;
   }
 }
+
+export default HeaderView;

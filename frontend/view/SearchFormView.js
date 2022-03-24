@@ -1,4 +1,4 @@
-import { recentSearch, subCategories } from "/frontend/js/data.js";
+import { recentSearch, subCategories } from "../js/data.js";
 import {
   $,
   hide,
@@ -7,20 +7,20 @@ import {
   show,
   getLocalStorage,
   setLocalStorage,
-} from "/frontend/js/utils.js";
-import Component from "/frontend/js/Component.js";
-import { reload } from "../../js/utils.js";
-import { searchFormModel } from "../../model/SearchFormModel.js";
+} from "../js/utils.js";
+import Component from "../js/Component.js";
+import { reload } from "../js/utils.js";
+import { searchFormModel } from "../model/SearchFormModel.js";
 
-export default function SearchForm(target) {
+export default function SearchFormView(target) {
   Component.call(this, target);
 
   renderRecentSearch();
 }
 
-SearchForm.prototype = Object.create(Component.prototype);
+SearchFormView.prototype = Object.create(Component.prototype);
 
-SearchForm.prototype.template = function () {
+SearchFormView.prototype.template = function () {
   return `
   <div class="search-form flex-row">
     <div class="select-category flex-col">
@@ -60,7 +60,7 @@ SearchForm.prototype.template = function () {
   </div>`;
 };
 
-SearchForm.prototype.addEvent = function () {
+SearchFormView.prototype.addEvent = function () {
   const inputEl = $(".search-input input");
   const iconSearchEl = $(".icon-search");
   const searchFooterEl = $(".search-footer");
