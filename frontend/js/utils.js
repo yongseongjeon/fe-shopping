@@ -26,6 +26,10 @@ function clearLocalStorage(key) {
   return localStorage.setItem(key, "");
 }
 
+function reload() {
+  document.location.reload();
+}
+
 const delay = (ms) =>
   new Promise((res) => {
     setTimeout(() => res(), ms);
@@ -45,6 +49,7 @@ export {
   setLocalStorage,
   getLocalStorage,
   clearLocalStorage,
+  reload,
   delay,
   debounce,
 };

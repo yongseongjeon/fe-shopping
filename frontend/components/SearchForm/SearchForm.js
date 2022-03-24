@@ -9,6 +9,7 @@ import {
   setLocalStorage,
 } from "/frontend/js/utils.js";
 import Component from "/frontend/js/Component.js";
+import { reload } from "../../js/utils.js";
 import { searchFormModel } from "../../model/SearchFormModel.js";
 
 export default function SearchForm(target) {
@@ -65,12 +66,12 @@ SearchForm.prototype.addEvent = function () {
   const searchFooterEl = $(".search-footer");
   const selectedEl = $(".selected-container");
   const selectCategoryEl = $(".select-category ul");
-  inputEl.addEventListener("focus", recentSearchFocusHandler);
-  inputEl.addEventListener("blur", recentSearchBlurHandler);
-  searchFooterEl.addEventListener("mousedown", searchFooterBtnHandler);
-  iconSearchEl.addEventListener("click", searchBtnHandler);
-  selectedEl.addEventListener("click", selectCategoryHandler);
-  selectCategoryEl.addEventListener("click", listClickHandler);
+  inputEl.addEventListener("focus", handleInputFocus);
+  inputEl.addEventListener("blur", handleInputBlur);
+  searchFooterEl.addEventListener("mousedown", handleSearchFooter);
+  iconSearchEl.addEventListener("click", handleSearchBtn);
+  selectedEl.addEventListener("click", handleCategorySelection);
+  selectCategoryEl.addEventListener("click", handleList);
 };
 
 function createListEl(el) {
@@ -95,81 +96,96 @@ function renderRecentSearch() {
   }
 }
 
-function recentSearchFocusHandler(e) {
+function handleInputFocus() {
   const recentEl = $(".recent");
   const recommendEl = $(".recommend");
   const inputEl = $(".search-input input");
+  const FIRST_IDX = -1;
+  searchFormModel.setCurIdx(FIRST_IDX);
   inputEl.value ? show(recommendEl) : show(recentEl);
 }
 
-function recentSearchBlurHandler(e) {
+function handleInputBlur() {
   const recentEl = $(".recent");
   const recommendEl = $(".recommend");
   hide(recentEl);
   hide(recommendEl);
+  deleteUnderlineAtList();
+  function deleteUnderlineAtList() {
+    const selected = $(".search-selected");
+    if (selected) {
+      selected.className = "";
+    }
+  }
 }
 
-function searchBtnHandler() {
+function handleSearchBtn() {
   const inputEl = $(".search-input input");
   const isOnRecentSearch = getLocalStorage("isOnRecentSearch");
   if (isOnRecentSearch === "true") {
     saveLocalStorage("recentSearch", inputEl.value);
   }
   clearValue(inputEl);
+
+  function clearValue(el) {
+    el.value = "";
+  }
 }
 
-function clearValue(el) {
-  el.value = "";
-}
-
-function searchFooterBtnHandler(e) {
+function handleSearchFooter(e) {
   const { name } = e.target.dataset;
   if (name === "전체삭제") {
     clearLocalStorage("recentSearch");
-    location.reload();
+    reload();
     return;
   }
   if (name === "최근검색어끄기") {
+    offRecentSearch();
+    return;
+  }
+  if (name === "최근검색어켜기") {
+    onRecentSearch();
+    return;
+  }
+
+  function offRecentSearch() {
     $(".recent-search").classList.add("hide");
     $(".history-off-msg__container").classList.remove("hide");
     $(".recent-search-off-btn").classList.add("hide");
     $(".recent-search-on-btn").classList.remove("hide");
-    "isOnRecentSearch", "false";
-    return;
+    setLocalStorage("isOnRecentSearch", "false");
   }
-  if (name === "최근검색어켜기") {
+  function onRecentSearch() {
     $(".recent-search").classList.remove("hide");
     $(".history-off-msg__container").classList.add("hide");
     $(".recent-search-on-btn").classList.add("hide");
     $(".recent-search-off-btn").classList.remove("hide");
     setLocalStorage("isOnRecentSearch", "true");
-    return;
   }
 }
 
-function selectCategoryHandler(e) {
+function handleCategorySelection(e) {
   const categoryEl = $(".select-category ul");
   const { transform } = categoryEl.style;
   const isClosed = transform === "scaleY(0)" || transform === "";
   isClosed ? openDropdown() : closeDropdown();
+
+  function openDropdown() {
+    $(".select-category ul").style.transform = "scaleY(1)";
+  }
+  function closeDropdown() {
+    $(".select-category ul").style.transform = "scaleY(0)";
+  }
 }
 
-function openDropdown() {
-  $(".select-category ul").style.transform = "scaleY(1)";
-}
-
-function closeDropdown() {
-  $(".select-category ul").style.transform = "scaleY(0)";
-}
-
-function listClickHandler(e) {
+function handleList(e) {
   const { name } = e.target.dataset;
   selectCategory(name);
   closeDropdown();
+
+  function selectCategory(category) {
+    $(".selected").innerText = category;
+  }
 }
 
-function selectCategory(category) {
-  $(".selected").innerText = category;
-}
-
-export { searchBtnHandler };
+export { handleSearchBtn };

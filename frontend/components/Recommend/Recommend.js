@@ -1,6 +1,6 @@
-import { debounce } from "../../js/utils.js";
+import { debounce, reload } from "../../js/utils.js";
 import { searchFormModel } from "../../model/SearchFormModel.js";
-import { searchBtnHandler } from "../SearchForm/SearchForm.js";
+import { handleSearchBtn } from "../SearchForm/SearchForm.js";
 import { autoComplete } from "/frontend/js/data.js";
 import { $, hide, show } from "/frontend/js/utils.js";
 
@@ -60,6 +60,7 @@ function autoCompleteHandler(e) {
     show(recentEl);
     return;
   }
+
   function handleRerendering({ Recommend }) {
     show(recommendEl);
     Recommend.recommendList = autoCompleteList;
@@ -74,9 +75,10 @@ function recommendKeyHandler(e) {
   const isPressDown = e.key === "ArrowDown";
   const LAST_INDEX = 9;
   const isFocusInput = searchFormModel.getCurIdx() === -1;
-  const prevIdx = isFocusInput ? 0 : searchFormModel.getCurIdx();
+  const isPressArrow = isPressUp || isPressDown;
+  if (!isPressArrow) return;
   if (isPressEnter) {
-    searchBtnHandler();
+    handleSearchBtn();
     reload();
     return;
   }
@@ -85,27 +87,26 @@ function recommendKeyHandler(e) {
       searchFormModel.setCurIdx(LAST_INDEX + 1);
     }
     searchFormModel.minusCurIdx();
-    const curIdx = searchFormModel.getCurIdx();
-    selectRecommendKeyword(prevIdx, curIdx);
-    return;
   }
   if (isPressDown) {
     searchFormModel.plusCurIdx();
-    const curIdx = searchFormModel.getCurIdx();
-    selectRecommendKeyword(prevIdx, curIdx);
-    return;
   }
+  const idx = searchFormModel.getCurIdx();
+  selectRecommendKeyword(idx);
 }
 
-function selectRecommendKeyword(prev, cur) {
+function selectRecommendKeyword(cur) {
   const recommendOlEl = $(".recommend ol");
   const inputEl = $(".search-input input");
-  recommendOlEl.children[prev].classList.remove("search-selected");
+  deleteUnderlineAtList();
   recommendOlEl.children[cur].classList.add("search-selected");
   const selectedKeyword = recommendOlEl.children[cur].innerText;
   inputEl.value = selectedKeyword;
-}
 
-function reload() {
-  document.location.reload();
+  function deleteUnderlineAtList() {
+    const selected = $(".search-selected");
+    if (selected) {
+      selected.className = "";
+    }
+  }
 }
