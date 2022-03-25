@@ -14,31 +14,31 @@ class AutoCompleteController {
     const inputEl = $(".search-input input");
     const recentEl = $(".recent");
     const recommendEl = $(".recommend");
+    const resOfAutoComplete = await fetch("http://localhost:3000/search");
+    const inputValue = inputEl.value;
+    const autoComplete = await resOfAutoComplete.json();
+    const fetchedAutoComplete = autoComplete[inputValue];
 
-    let autoComplete = await fetch("http://localhost:3000/search");
-    autoComplete = await autoComplete.json();
-
-    const autoCompleteList = autoComplete[inputEl.value];
-    const hasChangedKeyword =
-      autoCompleteModel.getAutoCompleteList() !== autoCompleteList;
-    if (autoCompleteList) {
+    if (fetchedAutoComplete) {
       hide(recentEl);
     }
     const isPressBackspace = e.key === "Backspace";
-    if (isPressBackspace && inputEl.value === "") {
+    if (isPressBackspace && inputValue === "") {
       hide(recommendEl);
       show(recentEl);
       return;
     }
-    if (hasChangedKeyword && autoCompleteList) {
+    const hasChangedKeyword =
+      autoCompleteModel.getAutoCompleteList() !== fetchedAutoComplete;
+    if (hasChangedKeyword && fetchedAutoComplete) {
       const DELAY_MS = 500;
-      debounce(() => handleRerendering({ Recommend: this }), DELAY_MS);
+      debounce(() => handleRerendering({ AutoCompleteView: this }), DELAY_MS);
     }
 
-    function handleRerendering({ Recommend }) {
+    function handleRerendering({ AutoCompleteView }) {
       show(recommendEl);
-      autoCompleteModel.setAutoCompleteList(autoCompleteList);
-      Recommend.render(autoCompleteList, inputEl.value);
+      autoCompleteModel.setAutoCompleteList(fetchedAutoComplete);
+      AutoCompleteView.render(fetchedAutoComplete, inputValue);
     }
   }
 
@@ -48,7 +48,7 @@ class AutoCompleteController {
     const isPressDown = e.key === "ArrowDown";
     const LAST_INDEX = 9;
 
-    const isFocusInput = searchFormModel.getCurIdx() === -1;
+    const isFocusInput = searchFormModel.getIdx() === -1;
     const isPressArrow = isPressUp || isPressDown;
     if (!isPressArrow) return;
     if (isPressEnter) {
@@ -58,29 +58,33 @@ class AutoCompleteController {
     }
     if (isPressUp) {
       if (isFocusInput) {
-        searchFormModel.setCurIdx(LAST_INDEX + 1);
+        searchFormModel.setIdx(LAST_INDEX + 1);
       }
-      searchFormModel.minusCurIdx();
+      searchFormModel.minusIdx();
     }
     if (isPressDown) {
-      searchFormModel.plusCurIdx();
+      searchFormModel.plusIdx();
     }
-    const idx = searchFormModel.getCurIdx();
+    const idx = searchFormModel.getIdx();
     selectRecommendKeyword(idx);
 
     function selectRecommendKeyword(cur) {
       const recommendOlEl = $(".recommend ol");
       const inputEl = $(".search-input input");
-      deleteUnderlineAtList();
-      recommendOlEl.children[cur].classList.add("search-selected");
-      const selectedKeyword = recommendOlEl.children[cur].innerText;
+      removeUnderlineAtList();
+      const selectedListElem = recommendOlEl.children[cur];
+      addUnderline(selectedListElem);
+      const selectedKeyword = selectedListElem.innerText;
       inputEl.value = selectedKeyword;
 
-      function deleteUnderlineAtList() {
+      function removeUnderlineAtList() {
         const selected = $(".search-selected");
         if (selected) {
           selected.className = "";
         }
+      }
+      function addUnderline(el) {
+        el.classList.add("search-selected");
       }
     }
   }

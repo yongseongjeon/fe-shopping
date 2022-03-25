@@ -2,23 +2,23 @@ const LAST_INDEX = 9;
 
 class SearchFormModel {
   constructor() {
-    this.curIdx = -1;
+    this.idx = -1;
   }
-  getCurIdx() {
-    return this.curIdx;
+  getIdx() {
+    return this.idx;
   }
-  setCurIdx(idx) {
-    this.curIdx = idx;
+  setIdx(idx) {
+    this.idx = idx;
   }
-  plusCurIdx() {
-    this.curIdx = (this.curIdx + 1) % 10;
+  plusIdx() {
+    this.idx = (this.idx + 1) % 10;
   }
-  minusCurIdx() {
-    if (this.curIdx === 0) {
-      this.curIdx = LAST_INDEX;
+  minusIdx() {
+    if (this.idx === 0) {
+      this.idx = LAST_INDEX;
       return;
     }
-    this.curIdx = this.curIdx - 1;
+    this.idx = this.idx - 1;
   }
 }
 

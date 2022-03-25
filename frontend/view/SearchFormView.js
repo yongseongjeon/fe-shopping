@@ -10,7 +10,7 @@ import {
 } from "../js/utils.js";
 import Component from "../js/Component.js";
 import { reload } from "../js/utils.js";
-// import { searchFormModel } from "../model/SearchFormModel.js";
+import { searchFormModel } from "../model/SearchFormModel.js";
 
 export default function SearchFormView(target) {
   Component.call(this, target);
@@ -101,7 +101,7 @@ function handleInputFocus() {
   const recommendEl = $(".recommend");
   const inputEl = $(".search-input input");
   const FIRST_IDX = -1;
-  // searchFormModel.setCurIdx(FIRST_IDX);
+  searchFormModel.setIdx(FIRST_IDX);
   inputEl.value ? show(recommendEl) : show(recentEl);
 }
 
