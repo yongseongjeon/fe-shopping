@@ -19,6 +19,10 @@ body {
   flex-direction: column;
 }
 
+.hide {
+  display: none;
+}
+
 .search-form {
   width: 54.2rem;
   height: 3.8rem;
@@ -37,11 +41,11 @@ body {
 .select-category ul {
   background-color: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
-  transition: 0.3s;
   height: fit-content;
+  padding: 1rem;
+  transition: 0.3s;
   transform: scaleY(0);
   perspective: 1000px;
-  padding: 1rem;
   animation: growDown 300ms ease-in-out forwards;
   transform-origin: top center;
 }
@@ -148,6 +152,20 @@ body {
   border: 0;
   color: #888;
   cursor: pointer;
+}
+
+.history-off-msg__container {
+  height: 8.3rem;
+}
+
+.history-off-msg {
+  font-size: 1.2rem;
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.search-selected {
+  text-decoration: underline;
 }
 
 ol {

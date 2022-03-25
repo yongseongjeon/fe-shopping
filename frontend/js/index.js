@@ -1,14 +1,15 @@
-import { Header } from "./components/Header/Header.js";
-import Recommend from "./components/Recommend/Recommend.js";
-import SearchForm from "./components/SearchForm/SearchForm.js";
-import { TopBar } from "./components/TopBar/topBar.js";
 import { $ } from "./utils.js";
+import TopBarView from "/frontend/view/topBarView.js";
+import HeaderView from "/frontend/view/HeaderView.js";
+import SearchFormView from "/frontend/view/SearchFormView.js";
+import AutoCompleteController from "../controller/AutoCompleteController.js";
 
-const headerEl = $(".header");
-const header = new Header(headerEl);
-const searchEl = $(".search");
-const searchForm = new SearchForm(searchEl);
-const recommendEl = $(".recommend");
-const recommend = new Recommend(recommendEl);
 const topBarEl = $(".top-bar");
-const topBar = new TopBar(topBarEl);
+const topBar = new TopBarView(topBarEl);
+const headerEl = $(".header");
+const header = new HeaderView(headerEl);
+
+const searchEl = $(".search");
+const searchForm = new SearchFormView(searchEl);
+
+const autoCompleteController = new AutoCompleteController();

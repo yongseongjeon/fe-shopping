@@ -1,6 +1,6 @@
-import Component from "../../Component.js";
+import Component from "/frontend/js/Component.js";
 
-export class TopBar extends Component {
+class TopBarView extends Component {
   constructor(target) {
     super(target);
   }
@@ -19,3 +19,5 @@ export class TopBar extends Component {
     `;
   }
 }
+
+export default TopBarView;
