@@ -1,6 +1,7 @@
 import AutoCompleteView from "../view/AutoCompleteView.js";
-import { searchFormModel } from "../model/SearchFormModel.js";
 import { $, debounce, hide, show } from "../js/utils.js";
+import { searchFormModel } from "../model/SearchFormModel.js";
+import { autoCompleteModel } from "../model/autoCompleteModel.js";
 
 class AutoCompleteController {
   constructor() {
@@ -18,7 +19,8 @@ class AutoCompleteController {
     autoComplete = await autoComplete.json();
 
     const autoCompleteList = autoComplete[inputEl.value];
-    const hasChangedKeyword = this.recommendList !== autoCompleteList;
+    const hasChangedKeyword =
+      autoCompleteModel.getAutoCompleteList() !== autoCompleteList;
     if (autoCompleteList) {
       hide(recentEl);
     }
@@ -35,6 +37,7 @@ class AutoCompleteController {
 
     function handleRerendering({ Recommend }) {
       show(recommendEl);
+      autoCompleteModel.setAutoCompleteList(autoCompleteList);
       Recommend.render(autoCompleteList, inputEl.value);
     }
   }

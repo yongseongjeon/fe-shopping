@@ -1,5 +1,4 @@
-import { debounce, reload } from "../js/utils.js";
-import { $, hide, show } from "../js/utils.js";
+import { $ } from "../js/utils.js";
 
 export default class AutoCompleteView {
   constructor(target) {

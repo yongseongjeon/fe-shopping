@@ -17,4 +17,4 @@ class AutoCompleteModel {
   }
 }
 
-export default AutoCompleteModel;
+export const autoCompleteModel = new AutoCompleteModel();
