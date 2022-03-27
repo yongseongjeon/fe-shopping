@@ -14,12 +14,9 @@ class AutoCompleteController {
     const inputEl = $(".search-input input");
     const recentEl = $(".recent");
     const recommendEl = $(".recommend");
-    const resOfAutoComplete = await fetch("http://localhost:3000/search");
-    const inputValue = inputEl.value;
-    const autoComplete = await resOfAutoComplete.json();
-    const fetchedAutoComplete = autoComplete[inputValue];
+    const autoComplete = await fetchAutoComplete();
 
-    if (fetchedAutoComplete) {
+    if (autoComplete) {
       hide(recentEl);
     }
     const isPressBackspace = e.key === "Backspace";
@@ -29,16 +26,23 @@ class AutoCompleteController {
       return;
     }
     const hasChangedKeyword =
-      autoCompleteModel.getAutoCompleteList() !== fetchedAutoComplete;
-    if (hasChangedKeyword && fetchedAutoComplete) {
+      autoCompleteModel.getAutoCompleteList() !== autoComplete;
+    if (hasChangedKeyword && autoComplete) {
       const DELAY_MS = 500;
       debounce(() => handleRerendering({ AutoCompleteView: this }), DELAY_MS);
     }
 
+    async function fetchAutoComplete() {
+      const resOfAutoComplete = await fetch("http://localhost:3000/search");
+      const inputValue = inputEl.value;
+      const autoComplete = await resOfAutoComplete.json();
+      return autoComplete[inputValue];
+    }
+
     function handleRerendering({ AutoCompleteView }) {
       show(recommendEl);
-      autoCompleteModel.setAutoCompleteList(fetchedAutoComplete);
-      AutoCompleteView.render(fetchedAutoComplete, inputValue);
+      autoCompleteModel.setAutoCompleteList(autoComplete);
+      AutoCompleteView.render(autoComplete, inputEl.value);
     }
   }
 
