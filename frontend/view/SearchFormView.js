@@ -1,13 +1,5 @@
 import { recentSearch, subCategories } from "../js/data.js";
-import {
-  $,
-  hide,
-  clearLocalStorage,
-  saveLocalStorage,
-  show,
-  getLocalStorage,
-  setLocalStorage,
-} from "../js/utils.js";
+import { $, hide, show } from "../js/utils.js";
 import Component from "../js/Component.js";
 import { reload } from "../js/utils.js";
 import { searchFormModel } from "../model/SearchFormModel.js";
@@ -66,6 +58,7 @@ SearchFormView.prototype.addEvent = function () {
   const searchFooterEl = $(".search-footer");
   const selectedEl = $(".selected-container");
   const selectCategoryEl = $(".select-category ul");
+
   inputEl.addEventListener("focus", handleInputFocus);
   inputEl.addEventListener("blur", handleInputBlur);
   searchFooterEl.addEventListener("mousedown", handleSearchFooter);
@@ -79,7 +72,7 @@ function createListEl(el) {
 }
 
 function renderRecentSearch() {
-  const isOnRecentSearch = getLocalStorage("isOnRecentSearch") === "true";
+  const isOnRecentSearch = searchFormModel.getRecentSearchState() === "true";
   if (isOnRecentSearch) {
     showRecentSearch();
     return;
@@ -122,9 +115,9 @@ function handleInputBlur() {
 
 function handleSearchBtn() {
   const inputEl = $(".search-input input");
-  const isOnRecentSearch = getLocalStorage("isOnRecentSearch");
-  if (isOnRecentSearch === "true") {
-    saveLocalStorage("recentSearch", inputEl.value);
+  const isOnRecentSearch = searchFormModel.getRecentSearchState() === "true";
+  if (isOnRecentSearch) {
+    searchFormModel.saveRecentSearch(inputEl.value);
   }
   clearValue(inputEl);
 
@@ -136,7 +129,7 @@ function handleSearchBtn() {
 function handleSearchFooter(e) {
   const { name } = e.target.dataset;
   if (name === "전체삭제") {
-    clearLocalStorage("recentSearch");
+    searchFormModel.clearRecentSearch();
     reload();
     return;
   }
@@ -154,14 +147,14 @@ function handleSearchFooter(e) {
     $(".history-off-msg__container").classList.remove("hide");
     $(".recent-search-off-btn").classList.add("hide");
     $(".recent-search-on-btn").classList.remove("hide");
-    setLocalStorage("isOnRecentSearch", "false");
+    searchFormModel.toggleRecentSearch();
   }
   function onRecentSearch() {
     $(".recent-search").classList.remove("hide");
     $(".history-off-msg__container").classList.add("hide");
     $(".recent-search-on-btn").classList.add("hide");
     $(".recent-search-off-btn").classList.remove("hide");
-    setLocalStorage("isOnRecentSearch", "true");
+    searchFormModel.toggleRecentSearch();
   }
 }
 
