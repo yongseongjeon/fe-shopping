@@ -7,13 +7,15 @@ class AutoCompleteController {
   constructor() {
     const recommendEl = $(".recommend");
     this.view = new AutoCompleteView(recommendEl);
-    this.view.addEvent(this.autoCompleteHandler, this.recommendKeyHandler);
+    const events = [this.autoCompleteHandler, this.recommendKeyHandler];
+    this.view.addEvent(...events);
   }
 
   async autoCompleteHandler(e) {
     const inputEl = $(".search-input input");
     const recentEl = $(".recent");
     const recommendEl = $(".recommend");
+    const inputValue = inputEl.value;
     const autoComplete = await fetchAutoComplete();
 
     if (autoComplete) {
@@ -34,7 +36,6 @@ class AutoCompleteController {
 
     async function fetchAutoComplete() {
       const resOfAutoComplete = await fetch("http://localhost:3000/search");
-      const inputValue = inputEl.value;
       const autoComplete = await resOfAutoComplete.json();
       return autoComplete[inputValue];
     }
@@ -42,7 +43,7 @@ class AutoCompleteController {
     function handleRerendering({ AutoCompleteView }) {
       show(recommendEl);
       autoCompleteModel.setAutoCompleteList(autoComplete);
-      AutoCompleteView.render(autoComplete, inputEl.value);
+      AutoCompleteView.render(autoComplete, inputValue);
     }
   }
 
@@ -70,9 +71,9 @@ class AutoCompleteController {
       searchFormModel.plusIdx();
     }
     const idx = searchFormModel.getIdx();
-    selectRecommendKeyword(idx);
+    selectAutoCompleteKeyword(idx);
 
-    function selectRecommendKeyword(cur) {
+    function selectAutoCompleteKeyword(cur) {
       const recommendOlEl = $(".recommend ol");
       const inputEl = $(".search-input input");
       removeUnderlineAtList();
