@@ -7,8 +7,8 @@ class AutoCompleteController {
   constructor() {
     const recommendEl = $(".recommend");
     this.view = new AutoCompleteView(recommendEl);
-    const events = [this.autoCompleteHandler, this.recommendKeyHandler];
-    this.view.addEvent(...events);
+    const handlers = [this.autoCompleteHandler, this.recommendKeyHandler];
+    this.view.addEvent(...handlers);
   }
 
   async autoCompleteHandler(e) {

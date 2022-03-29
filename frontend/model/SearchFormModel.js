@@ -3,6 +3,7 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from "../js/utils.js";
+import { subCategories } from "../js/data.js";
 
 const LAST_INDEX = 9;
 
@@ -11,6 +12,8 @@ class SearchFormModel {
     this.idx = -1;
     this.isOnRecentSearch = getLocalStorage("isOnRecentSearch");
     this.recentSearchList = getLocalStorage("recentSearch").split(",");
+    // TODO: subCategories 서버에서 fetch
+    this.subCategories = subCategories;
   }
 
   getIdx() {
@@ -33,6 +36,9 @@ class SearchFormModel {
   getRecentSearchState() {
     return this.isOnRecentSearch;
   }
+  getRecentSearchList() {
+    return this.recentSearchList;
+  }
   toggleRecentSearch() {
     if (this.isOnRecentSearch === "true") {
       this.isOnRecentSearch = "false";
@@ -52,6 +58,9 @@ class SearchFormModel {
   clearRecentSearch() {
     this.recentSearchList = [];
     clearLocalStorage("recentSearch");
+  }
+  getSubCategories() {
+    return this.subCategories;
   }
 }
 

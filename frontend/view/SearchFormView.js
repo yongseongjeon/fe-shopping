@@ -1,18 +1,10 @@
-import { recentSearch, subCategories } from "../js/data.js";
-import { $, hide, show } from "../js/utils.js";
-import Component from "../js/Component.js";
-import { reload } from "../js/utils.js";
-import { searchFormModel } from "../model/SearchFormModel.js";
+import { $ } from "../js/utils.js";
 
-export default function SearchFormView(target) {
-  Component.call(this, target);
-
-  renderRecentSearch();
+function SearchFormView(target) {
+  this.target = target;
 }
 
-SearchFormView.prototype = Object.create(Component.prototype);
-
-SearchFormView.prototype.template = function () {
+SearchFormView.prototype.template = function (subCategories, recentSearch) {
   return `
   <div class="search-form flex-row">
     <div class="select-category flex-col">
@@ -52,132 +44,34 @@ SearchFormView.prototype.template = function () {
   </div>`;
 };
 
-SearchFormView.prototype.addEvent = function () {
+SearchFormView.prototype.addEvent = function (handlers) {
   const inputEl = $(".search-input input");
   const iconSearchEl = $(".icon-search");
   const searchFooterEl = $(".search-footer");
   const selectedEl = $(".selected-container");
   const selectCategoryEl = $(".select-category ul");
 
-  inputEl.addEventListener("focus", handleInputFocus);
-  inputEl.addEventListener("blur", handleInputBlur);
-  searchFooterEl.addEventListener("mousedown", handleSearchFooter);
-  iconSearchEl.addEventListener("click", handleSearchBtn);
-  selectedEl.addEventListener("click", handleCategorySelection);
-  selectCategoryEl.addEventListener("click", handleList);
+  const events = [
+    { elem: inputEl, eventType: "focus" },
+    { elem: inputEl, eventType: "blur" },
+    { elem: iconSearchEl, eventType: "click" },
+    { elem: searchFooterEl, eventType: "mousedown" },
+    { elem: selectedEl, eventType: "click" },
+    { elem: selectCategoryEl, eventType: "click" },
+  ];
+
+  events.forEach((event, i) => {
+    const { elem, eventType } = event;
+    elem.addEventListener(eventType, handlers[i]);
+  });
+};
+
+SearchFormView.prototype.render = function (subCategories, recentSearch) {
+  this.target.innerHTML = this.template(subCategories, recentSearch);
 };
 
 function createListEl(el) {
   return el.reduce((acc, el) => acc + `<li data-name="${el}">${el}</li>`, "");
 }
 
-function renderRecentSearch() {
-  const isOnRecentSearch = searchFormModel.getRecentSearchState() === "true";
-  if (isOnRecentSearch) {
-    showRecentSearch();
-    return;
-  }
-  hideRecentSearch();
-
-  function showRecentSearch() {
-    $(".history-off-msg__container").classList.add("hide");
-    $(".recent-search-on-btn").classList.add("hide");
-  }
-  function hideRecentSearch() {
-    $(".recent-search").classList.add("hide");
-    $(".recent-search-off-btn").classList.add("hide");
-  }
-}
-
-function handleInputFocus() {
-  const recentEl = $(".recent");
-  const recommendEl = $(".recommend");
-  const inputEl = $(".search-input input");
-  const FIRST_IDX = -1;
-  searchFormModel.setIdx(FIRST_IDX);
-  inputEl.value ? show(recommendEl) : show(recentEl);
-}
-
-function handleInputBlur() {
-  const recentEl = $(".recent");
-  const recommendEl = $(".recommend");
-  hide(recentEl);
-  hide(recommendEl);
-  deleteUnderlineAtList();
-
-  function deleteUnderlineAtList() {
-    const selected = $(".search-selected");
-    if (selected) {
-      selected.className = "";
-    }
-  }
-}
-
-function handleSearchBtn() {
-  const inputEl = $(".search-input input");
-  const isOnRecentSearch = searchFormModel.getRecentSearchState() === "true";
-  if (isOnRecentSearch) {
-    searchFormModel.saveRecentSearch(inputEl.value);
-  }
-  clearValue(inputEl);
-
-  function clearValue(el) {
-    el.value = "";
-  }
-}
-
-function handleSearchFooter(e) {
-  const { name } = e.target.dataset;
-  if (name === "전체삭제") {
-    searchFormModel.clearRecentSearch();
-    reload();
-    return;
-  }
-  if (name === "최근검색어끄기") {
-    offRecentSearch();
-    return;
-  }
-  if (name === "최근검색어켜기") {
-    onRecentSearch();
-    return;
-  }
-
-  function offRecentSearch() {
-    $(".recent-search").classList.add("hide");
-    $(".history-off-msg__container").classList.remove("hide");
-    $(".recent-search-off-btn").classList.add("hide");
-    $(".recent-search-on-btn").classList.remove("hide");
-    searchFormModel.toggleRecentSearch();
-  }
-  function onRecentSearch() {
-    $(".recent-search").classList.remove("hide");
-    $(".history-off-msg__container").classList.add("hide");
-    $(".recent-search-on-btn").classList.add("hide");
-    $(".recent-search-off-btn").classList.remove("hide");
-    searchFormModel.toggleRecentSearch();
-  }
-}
-
-function handleCategorySelection() {
-  const categoryEl = $(".select-category ul");
-  const { transform } = categoryEl.style;
-  const isClosed = transform === "scaleY(0)" || transform === "";
-  isClosed ? openDropdown() : closeDropdown();
-
-  function openDropdown() {
-    $(".select-category ul").style.transform = "scaleY(1)";
-  }
-  function closeDropdown() {
-    $(".select-category ul").style.transform = "scaleY(0)";
-  }
-}
-
-function handleList() {
-  const { name } = e.target.dataset;
-  selectCategory(name);
-  closeDropdown();
-
-  function selectCategory(category) {
-    $(".selected").innerText = category;
-  }
-}
+export default SearchFormView;
