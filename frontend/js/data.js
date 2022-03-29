@@ -1,9 +1,3 @@
-import { getLocalStorage } from "./utils.js";
-
-export const recentSearch = getLocalStorage("recentSearch")
-  ? getLocalStorage("recentSearch").split(",")
-  : [];
-
 export const subCategories = [
   "전체",
   "여성패션",
