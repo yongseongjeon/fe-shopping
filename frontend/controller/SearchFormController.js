@@ -1,4 +1,3 @@
-import { subCategories } from "../js/data.js";
 import { $, hide, show } from "../js/utils.js";
 import { reload } from "../js/utils.js";
 import { searchFormModel } from "../model/SearchFormModel.js";
@@ -7,7 +6,6 @@ import SearchFormView from "../view/SearchFormView.js";
 class SearchFormController {
   constructor() {
     const searchEl = $(".search");
-    this.view = new SearchFormView(searchEl);
     const handlers = [
       this.handleInputFocus,
       this.handleInputBlur,
@@ -16,12 +14,12 @@ class SearchFormController {
       this.handleCategorySelection,
       this.handleList,
     ];
+    this.view = new SearchFormView(searchEl);
     this.view.render(
       searchFormModel.getSubCategories(),
       searchFormModel.getRecentSearchList()
     );
     this.view.addEvent(handlers);
-
     this.renderRecentSearch();
   }
 
@@ -121,12 +119,9 @@ class SearchFormController {
     function openDropdown() {
       $(".select-category ul").style.transform = "scaleY(1)";
     }
-    function closeDropdown() {
-      $(".select-category ul").style.transform = "scaleY(0)";
-    }
   }
 
-  handleList() {
+  handleList(e) {
     const { name } = e.target.dataset;
     selectCategory(name);
     closeDropdown();
@@ -135,6 +130,10 @@ class SearchFormController {
       $(".selected").innerText = category;
     }
   }
+}
+
+function closeDropdown() {
+  $(".select-category ul").style.transform = "scaleY(0)";
 }
 
 export default SearchFormController;

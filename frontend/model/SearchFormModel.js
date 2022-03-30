@@ -3,17 +3,18 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from "../js/utils.js";
-import { subCategories } from "../js/data.js";
 
 const LAST_INDEX = 9;
 
 class SearchFormModel {
   constructor() {
-    this.idx = -1;
-    this.isOnRecentSearch = getLocalStorage("isOnRecentSearch");
-    this.recentSearchList = getLocalStorage("recentSearch").split(",");
-    // TODO: subCategories 서버에서 fetch
-    this.subCategories = subCategories;
+    return (async () => {
+      this.idx = -1;
+      this.isOnRecentSearch = getLocalStorage("isOnRecentSearch");
+      this.recentSearchList = getLocalStorage("recentSearch").split(",");
+      this.subCategories = await fetchCategories();
+      return this;
+    })();
   }
 
   getIdx() {
@@ -64,4 +65,11 @@ class SearchFormModel {
   }
 }
 
-export const searchFormModel = new SearchFormModel();
+async function fetchCategories() {
+  const URL_CATEGORY = "http://localhost:3000/sub-category";
+  const res = await fetch(URL_CATEGORY);
+  const categoryJSON = await res.json();
+  return categoryJSON.subCategories;
+}
+
+export const searchFormModel = await new SearchFormModel();

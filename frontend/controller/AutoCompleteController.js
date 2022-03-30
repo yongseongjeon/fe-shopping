@@ -7,11 +7,11 @@ class AutoCompleteController {
   constructor() {
     const recommendEl = $(".recommend");
     this.view = new AutoCompleteView(recommendEl);
-    const handlers = [this.autoCompleteHandler, this.recommendKeyHandler];
+    const handlers = [this.handleAutoComplete, this.handleAutoCompleteMovement];
     this.view.addEvent(...handlers);
   }
 
-  async autoCompleteHandler(e) {
+  async handleAutoComplete(e) {
     const inputEl = $(".search-input input");
     const recentEl = $(".recent");
     const recommendEl = $(".recommend");
@@ -47,7 +47,7 @@ class AutoCompleteController {
     }
   }
 
-  recommendKeyHandler(e) {
+  handleAutoCompleteMovement(e) {
     const isPressEnter = e.key === "Enter";
     const isPressUp = e.key === "ArrowUp";
     const isPressDown = e.key === "ArrowDown";

@@ -14,3 +14,7 @@ app.use(cors());
 app.get("/search", (req, res) => {
   res.sendFile(path.join(__dirname, "autoComplete.json"));
 });
+
+app.get("/sub-category", (req, res) => {
+  res.sendFile(path.join(__dirname, "subCategories.json"));
+});
